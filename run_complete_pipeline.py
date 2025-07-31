@@ -189,8 +189,8 @@ def run_complete_pipeline(clear_neo4j=True, use_improved_extraction=True):
         # Get Neo4j credentials from environment or use defaults
         uri = os.getenv("NEO4J_LOCAL_URI", "bolt://localhost:7687")
         user = os.getenv("NEO4J_LOCAL_USER", "neo4j")
-        password = os.getenv("NEO4J_LOCAL_PASSWORD", "password123")
-        database = os.getenv("NEO4J_LOCAL_DATABASE", "neo4j")
+        password = os.getenv("NEO4J_LOCAL_PASSWORD", "Ragav@2000")
+        database = os.getenv("NEO4J_LOCAL_DATABASE", "trainee-kg")
 
         loader = Neo4jLocalLoader(
             uri=uri,

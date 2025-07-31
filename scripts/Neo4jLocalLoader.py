@@ -13,8 +13,8 @@ class Neo4jLocalLoader:
                  validated_data_file="data/validated_data/validated_data.json",
                  uri="bolt://localhost:7687",
                  user="neo4j",
-                 password="password123",
-                 database="neo4j"):
+                 password="Ragav@2000",
+                 database="trainee-kg"):
         self.validated_data_file = Path(validated_data_file)
         self.uri = uri
         self.user = user
@@ -456,8 +456,8 @@ def main():
     # Default local Neo4j connection settings
     uri = "bolt://localhost:7687"
     user = "neo4j"
-    password = "password123"  # Change this to your Neo4j password
-    database = "neo4j"
+    password = "Ragav@2000"  # Change this to your Neo4j password
+    database = "trainee-kg"
 
     # Allow override via environment variables
     uri = os.getenv("NEO4J_LOCAL_URI", uri)

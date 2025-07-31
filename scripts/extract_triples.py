@@ -32,19 +32,28 @@ class ImprovedTripleExtractor:
         self.extraction_patterns = self.get_improved_patterns()
 
     def load_rebel_model(self):
-        """Load REBEL model for better relation extraction"""
+        """Load REBEL model for better relation extraction - with fine-tuned model support"""
         try:
             print("🤖 Loading REBEL model for advanced extraction...")
             from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
             import torch
 
-            model_name = "Babelscape/rebel-large"
-            print(f"📥 Downloading {model_name}...")
+            # First, try to load fine-tuned model
+            fine_tuned_path = "models/rebel-java-finetuned"
+
+            if Path(fine_tuned_path).exists():
+                print(f"🎯 Found fine-tuned model! Loading from {fine_tuned_path}")
+                model_name = fine_tuned_path
+                print("✨ Using your Java-domain-specific REBEL model...")
+            else:
+                print("📥 Fine-tuned model not found, using pre-trained model...")
+                model_name = "Babelscape/rebel-large"
+                print(f"📥 Downloading {model_name}...")
 
             self.rebel_tokenizer = AutoTokenizer.from_pretrained(model_name)
             self.rebel_model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
 
-            # Move to CPU explicitly to avoid device issues
+            # Move to appropriate device
             if torch.cuda.is_available():
                 print("🎮 CUDA available, using GPU")
                 self.rebel_model = self.rebel_model.cuda()
@@ -52,7 +61,8 @@ class ImprovedTripleExtractor:
                 print("💻 Using CPU for inference")
                 self.rebel_model = self.rebel_model.cpu()
 
-            print("✅ REBEL model loaded successfully!")
+            model_type = "fine-tuned Java-specific" if Path(fine_tuned_path).exists() else "pre-trained"
+            print(f"✅ {model_type} REBEL model loaded successfully!")
             return True
 
         except ImportError as e:
@@ -62,6 +72,25 @@ class ImprovedTripleExtractor:
             return False
         except Exception as e:
             print(f"⚠️ Error loading REBEL: {e}")
+
+            # If fine-tuned model fails, try fallback to pre-trained
+            if "fine-tuned" in str(e).lower() or "models/rebel-java-finetuned" in str(e):
+                print("🔄 Fine-tuned model failed, trying pre-trained fallback...")
+                try:
+                    model_name = "Babelscape/rebel-large"
+                    self.rebel_tokenizer = AutoTokenizer.from_pretrained(model_name)
+                    self.rebel_model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
+
+                    if torch.cuda.is_available():
+                        self.rebel_model = self.rebel_model.cuda()
+                    else:
+                        self.rebel_model = self.rebel_model.cpu()
+
+                    print("✅ Pre-trained REBEL model loaded as fallback!")
+                    return True
+                except Exception as fallback_error:
+                    print(f"❌ Fallback also failed: {fallback_error}")
+
             print("🔄 Using improved pattern matching...")
             return False
 
