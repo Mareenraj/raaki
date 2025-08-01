@@ -1,7 +1,3 @@
-"""
-Improved Triple Extraction with Better Error Handling and Bug Fixes
-"""
-
 import json
 import os
 import re
@@ -9,349 +5,389 @@ from datetime import datetime
 from pathlib import Path
 from collections import defaultdict
 import logging
+from typing import List, Dict, Tuple, Optional
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
-class ImprovedTripleExtractor:
-    def __init__(self,
-                 scraped_data_file="data/scraped_content/w3schools_java_tutorials.json",
-                 output_dir="data/extracted_triples",
-                 use_rebel=True,
-                 use_improved_patterns=True):
-        self.scraped_data_file = Path(scraped_data_file)
+class OntologyAwareTripleExtractor:
+    def __init__(
+            self,
+            technologies: List[str] = [
+                "html", "css", "js", "python", "java", "sql",
+                "bootstrap", "jquery", "json", "ajax", "xml", "api",
+                "php", "csharp", "nodejs", "react", "typescript"
+            ],
+            input_dir="data/scraped_content",
+            output_dir="data/extracted_triples",
+            ontology_file="data/ontology/generalized_ontology.json",
+            use_rebel=True,
+            use_ontology_guided_extraction=True
+    ):
+        self.technologies = technologies
+        self.input_dir = Path(input_dir)
         self.output_dir = Path(output_dir)
+        self.ontology_file = Path(ontology_file)
         self.use_rebel = use_rebel
-        self.use_improved_patterns = use_improved_patterns
+        self.use_ontology_guided_extraction = use_ontology_guided_extraction
+
+        # Load ontology data
+        self.ontology = self.load_ontology()
+        self.entities = set(self.ontology.get("entities", []))
+        self.relations = set(self.ontology.get("relations", []))
+        self.tech_mappings = self.ontology.get("technology_mappings", {})
+        self.entity_categories = self.ontology.get("entity_categories", {})
+
+        # REBEL model components
         self.rebel_model = None
         self.rebel_tokenizer = None
 
-        # Load improved patterns
-        self.extraction_patterns = self.get_improved_patterns()
+        # Create ontology-guided patterns
+        self.ontology_patterns = self.create_ontology_guided_patterns()
+
+    def load_ontology(self) -> Dict:
+        """Load the generalized ontology created by GeneralizedOntologyCreator"""
+        try:
+            print(f"🔄 Loading ontology from: {self.ontology_file}")
+
+            if not self.ontology_file.exists():
+                print(f"⚠️ Ontology file not found, creating new one...")
+                from create_ontology import GeneralizedOntologyCreator
+                creator = GeneralizedOntologyCreator()
+                ontology_data = creator.create_ontology()
+                return ontology_data if ontology_data else {}
+
+            with open(self.ontology_file, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+
+            # Extract ontology from the full structure
+            if "ontology" in data:
+                ontology = data["ontology"]
+                tech_mappings = data.get("technology_mappings", {})
+                ontology["technology_mappings"] = tech_mappings
+                ontology["entity_categories"] = ontology.get("entity_categories", {})
+            else:
+                ontology = data
+
+            print(
+                f"✅ Loaded ontology with {len(ontology.get('entities', []))} entities and {len(ontology.get('relations', []))} relations")
+            return ontology
+
+        except Exception as e:
+            print(f"❌ Error loading ontology: {e}")
+            # Fallback to basic ontology
+            return {
+                "entities": ["Component", "Function", "Class", "Property", "Method"],
+                "relations": ["isA", "hasA", "uses", "contains", "implements"],
+                "technology_mappings": {},
+                "entity_categories": {}
+            }
+
+    def create_ontology_guided_patterns(self) -> Dict:
+        """Create extraction patterns based on ontology entities and relations"""
+        patterns = {}
+
+        # Create patterns for each entity category
+        for category, category_entities in self.entity_categories.items():
+            patterns[category] = []
+
+            for entity in category_entities:
+                # Create flexible patterns for each entity
+                entity_patterns = self.generate_entity_patterns(entity, category)
+                patterns[category].extend(entity_patterns)
+
+        # Add technology-specific patterns based on mappings
+        for tech, mappings in self.tech_mappings.items():
+            tech_patterns = []
+            for general_entity, specific_terms in mappings.items():
+                for specific_term in specific_terms:
+                    pattern = self.create_tech_specific_pattern(specific_term, general_entity, tech)
+                    if pattern:
+                        tech_patterns.append(pattern)
+            patterns[f"{tech}_specific"] = tech_patterns
+
+        return patterns
+
+    def generate_entity_patterns(self, entity: str, category: str) -> List[Tuple]:
+        """Generate extraction patterns for a specific entity"""
+        patterns = []
+        entity_lower = entity.lower()
+
+        # Basic entity mention patterns
+        patterns.append((
+            rf'\b{re.escape(entity_lower)}\b',
+            lambda m, e=entity, c=category: self.extract_entity_mention(m, e, c)
+        ))
+
+        # Relationship patterns using ontology relations
+        for relation in self.relations:
+            if relation in ["isA", "isTypeOf", "instanceOf"]:
+                # Pattern: "X is a/an Entity" or "X is Entity"
+                patterns.append((
+                    rf'(\w+)\s+(?:is\s+(?:a|an)\s+)?{re.escape(entity_lower)}',
+                    lambda m, e=entity, r=relation: [(m.group(1), r, e)]
+                ))
+
+            elif relation in ["hasA", "contains", "includes"]:
+                # Pattern: "Entity has/contains X"
+                patterns.append((
+                    rf'{re.escape(entity_lower)}\s+(?:has|contains|includes)\s+(\w+)',
+                    lambda m, e=entity, r=relation: [(e, r, m.group(1))]
+                ))
+
+            elif relation in ["uses", "utilizes", "employs"]:
+                # Pattern: "X uses Entity" or "Entity uses X"
+                patterns.append((
+                    rf'(\w+)\s+(?:uses|utilizes|employs)\s+{re.escape(entity_lower)}',
+                    lambda m, e=entity, r=relation: [(m.group(1), r, e)]
+                ))
+
+        return patterns
+
+    def create_tech_specific_pattern(self, specific_term: str, general_entity: str, tech: str) -> Optional[Tuple]:
+        """Create technology-specific extraction patterns"""
+        try:
+            specific_lower = specific_term.lower()
+
+            # Handle different term formats
+            if " " in specific_term:
+                # Multi-word terms like "CSS Property"
+                pattern = rf'\b{re.escape(specific_lower)}\b'
+            else:
+                # Single word terms
+                pattern = rf'\b{re.escape(specific_lower)}\b'
+
+            def extractor(match):
+                return [(specific_term, "isA", general_entity), (specific_term, "belongsTo", tech.upper())]
+
+            return (pattern, extractor)
+
+        except Exception as e:
+            logger.warning(f"Error creating pattern for {specific_term}: {e}")
+            return None
+
+    def extract_entity_mention(self, match, entity: str, category: str) -> List[Tuple]:
+        """Extract triples from entity mentions"""
+        return [(match.group(0), "isA", entity), (entity, "belongsTo", category)]
+
+    def extract_with_ontology_mappings(self, content: Dict, technology: str) -> List[Dict]:
+        """Extract triples using pre-computed ontology mappings from web scraper"""
+        triples = []
+
+        # Use ontology mappings created by the web scraper
+        ontology_mappings = content.get("ontology_mappings", {})
+
+        for entity, text_snippets in ontology_mappings.items():
+            if entity in self.entities:
+                # Create triples from ontology mappings
+                for snippet in text_snippets:
+                    # Basic entity assertion
+                    triples.append({
+                        "subject": entity,
+                        "relation": "appearsIn",
+                        "object": technology.upper(),
+                        "confidence": 0.9,
+                        "extraction_method": "ontology_mapping",
+                        "source_text": snippet,
+                        "technology": technology
+                    })
+
+                    # Add category relationships
+                    for category, entities_in_category in self.entity_categories.items():
+                        if entity in entities_in_category:
+                            triples.append({
+                                "subject": entity,
+                                "relation": "belongsTo",
+                                "object": category.replace("_", " ").title(),
+                                "confidence": 0.95,
+                                "extraction_method": "ontology_mapping",
+                                "source_text": snippet,
+                                "technology": technology
+                            })
+                            break
+
+                    # Add technology-specific mappings
+                    if technology in self.tech_mappings:
+                        tech_mapping = self.tech_mappings[technology]
+                        if entity in tech_mapping:
+                            for specific_term in tech_mapping[entity]:
+                                if specific_term.lower() in snippet.lower():
+                                    triples.append({
+                                        "subject": specific_term,
+                                        "relation": "isA",
+                                        "object": entity,
+                                        "confidence": 0.85,
+                                        "extraction_method": "tech_mapping",
+                                        "source_text": snippet,
+                                        "technology": technology
+                                    })
+
+        return triples
+
+    def extract_with_ontology_guided_patterns(self, text: str, technology: str) -> List[Dict]:
+        """Extract triples using ontology-guided patterns"""
+        triples = []
+
+        if not text or not self.use_ontology_guided_extraction:
+            return triples
+
+        # Apply general ontology patterns
+        for category, patterns in self.ontology_patterns.items():
+            if category.endswith("_specific") and not category.startswith(technology):
+                continue  # Skip other technology-specific patterns
+
+            for pattern, extractor_func in patterns:
+                try:
+                    matches = re.finditer(pattern, text, re.IGNORECASE | re.MULTILINE)
+                    for match in matches:
+                        try:
+                            extracted_triples = extractor_func(match)
+                            if extracted_triples:
+                                for triple_data in extracted_triples:
+                                    if len(triple_data) == 3:
+                                        subject, relation, obj = triple_data
+                                        if subject and relation and obj:
+                                            triples.append({
+                                                "subject": self.normalize_entity(subject),
+                                                "relation": self.normalize_relation(relation),
+                                                "object": self.normalize_entity(obj),
+                                                "confidence": self.get_ontology_pattern_confidence(category),
+                                                "extraction_method": "ontology_guided_patterns",
+                                                "pattern_category": category,
+                                                "source_text": text[max(0, match.start() - 20):match.end() + 20],
+                                                "technology": technology
+                                            })
+                        except Exception as e:
+                            logger.warning(f"Error processing match in {category}: {e}")
+                            continue
+                except Exception as e:
+                    logger.error(f"Pattern extraction error in {category}: {e}")
+                    continue
+
+        return triples
+
+    def get_ontology_pattern_confidence(self, category: str) -> float:
+        """Get confidence score for ontology-guided patterns"""
+        confidence_map = {
+            'programming_constructs': 0.9,
+            'data_entities': 0.88,
+            'behavioral_entities': 0.85,
+            'structural_entities': 0.87,
+            'oop_entities': 0.9,
+            'control_entities': 0.85,
+            'communication_entities': 0.8,
+            'storage_entities': 0.85,
+            'resource_entities': 0.82,
+            'processing_entities': 0.88,
+            'security_entities': 0.9,
+            'lifecycle_entities': 0.85,
+            'quality_entities': 0.83,
+            'ui_entities': 0.87,
+            'network_entities': 0.85,
+            'development_entities': 0.8,
+            'metadata_entities': 0.82
+        }
+
+        # Technology-specific patterns get higher confidence
+        if "_specific" in category:
+            return 0.92
+
+        return confidence_map.get(category, 0.75)
 
     def load_rebel_model(self):
-        """Load REBEL model for better relation extraction - with fine-tuned model support"""
+        """Load REBEL model for advanced extraction"""
+        if not self.use_rebel:
+            return False
+
         try:
-            print("🤖 Loading REBEL model for advanced extraction...")
+            print("🤖 Loading REBEL model...")
             from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
             import torch
 
-            # First, try to load fine-tuned model
-            fine_tuned_path = "models/rebel-java-finetuned"
-
-            if Path(fine_tuned_path).exists():
-                print(f"🎯 Found fine-tuned model! Loading from {fine_tuned_path}")
-                model_name = fine_tuned_path
-                print("✨ Using your Java-domain-specific REBEL model...")
-            else:
-                print("📥 Fine-tuned model not found, using pre-trained model...")
-                model_name = "Babelscape/rebel-large"
-                print(f"📥 Downloading {model_name}...")
-
+            model_name = "Babelscape/rebel-large"
             self.rebel_tokenizer = AutoTokenizer.from_pretrained(model_name)
-            self.rebel_model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
+            self.rebel_model = AutoModelForSeq2SeqLM.from_pretrained(
+                model_name,
+                torch_dtype=torch.float16 if torch.cuda.is_available() else torch.float32
+            )
 
-            # Move to appropriate device
             if torch.cuda.is_available():
-                print("🎮 CUDA available, using GPU")
                 self.rebel_model = self.rebel_model.cuda()
-            else:
-                print("💻 Using CPU for inference")
-                self.rebel_model = self.rebel_model.cpu()
 
-            model_type = "fine-tuned Java-specific" if Path(fine_tuned_path).exists() else "pre-trained"
-            print(f"✅ {model_type} REBEL model loaded successfully!")
+            print("✅ REBEL model loaded successfully!")
             return True
 
-        except ImportError as e:
-            print("⚠️ Transformers not available. Install with:")
-            print("pip install torch transformers sentencepiece protobuf")
-            print("🔄 Falling back to improved pattern matching...")
-            return False
         except Exception as e:
-            print(f"⚠️ Error loading REBEL: {e}")
-
-            # If fine-tuned model fails, try fallback to pre-trained
-            if "fine-tuned" in str(e).lower() or "models/rebel-java-finetuned" in str(e):
-                print("🔄 Fine-tuned model failed, trying pre-trained fallback...")
-                try:
-                    model_name = "Babelscape/rebel-large"
-                    self.rebel_tokenizer = AutoTokenizer.from_pretrained(model_name)
-                    self.rebel_model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
-
-                    if torch.cuda.is_available():
-                        self.rebel_model = self.rebel_model.cuda()
-                    else:
-                        self.rebel_model = self.rebel_model.cpu()
-
-                    print("✅ Pre-trained REBEL model loaded as fallback!")
-                    return True
-                except Exception as fallback_error:
-                    print(f"❌ Fallback also failed: {fallback_error}")
-
-            print("🔄 Using improved pattern matching...")
+            print(f"⚠️ Could not load REBEL model: {e}")
             return False
 
-    def get_improved_patterns(self):
-        """Define comprehensive extraction patterns for Java concepts"""
-        return {
-            # Class and Interface Definitions - Fixed lambda functions
-            "class_definition": [
-                (r'\bclass\s+(\w+)(?:\s+extends\s+(\w+))?(?:\s+implements\s+([\w,\s]+))?',
-                 self._extract_class_relations)
-            ],
-
-            "interface_definition": [
-                (r'\binterface\s+(\w+)(?:\s+extends\s+([\w,\s]+))?',
-                 self._extract_interface_relations)
-            ],
-
-            # Method Definitions and Calls
-            "method_definition": [
-                (r'\b(?:public|private|protected)?\s*(?:static)?\s*(\w+)\s+(\w+)\s*\([^)]*\)',
-                 self._extract_method_relations)
-            ],
-
-            "method_call": [
-                (r'(\w+)\.(\w+)\s*\(',
-                 self._extract_method_call_relations)
-            ],
-
-            # Object Creation and Instantiation
-            "instantiation": [
-                (r'new\s+(\w+)\s*\(',
-                 self._extract_instantiation_relations)
-            ],
-
-            # Collections and Data Structures
-            "collection_usage": [
-                (r'\b(ArrayList|HashMap|HashSet|LinkedList|TreeMap|Vector|Stack|Queue)\b',
-                 self._extract_collection_relations)
-            ],
-
-            # Data Types
-            "data_types": [
-                (r'\b(String|int|double|float|boolean|char|long|byte|short)\b',
-                 self._extract_datatype_relations)
-            ],
-
-            # Exception Handling
-            "exception_handling": [
-                (r'\b(?:try|catch|finally|throw|throws)\b.*?\b(\w+(?:Exception|Error))\b',
-                 self._extract_exception_relations)
-            ],
-
-            # Annotations
-            "annotations": [
-                (r'@(\w+)',
-                 self._extract_annotation_relations)
-            ],
-
-            # Import Statements
-            "imports": [
-                (r'\bimport\s+([\w.]+)\.(\w+)',
-                 self._extract_import_relations)
-            ],
-
-            # Framework Concepts
-            "spring_concepts": [
-                (r'@(Controller|Service|Repository|Component|Entity|RestController)',
-                 self._extract_spring_relations)
-            ],
-
-            "web_concepts": [
-                (r'\b(REST|HTTP|JSON|XML|API|GET|POST|PUT|DELETE)\b',
-                 self._extract_web_relations)
-            ],
-
-            # Design Patterns
-            "design_patterns": [
-                (r'\b(Singleton|Factory|Observer|Strategy|Builder|Adapter)\b',
-                 self._extract_pattern_relations)
-            ]
-        }
-
-    # Fixed extraction methods - no more lambda functions
-    def _extract_class_relations(self, match):
-        """Extract class-related triples"""
-        triples = [(match.group(1), "isTypeOf", "Class")]
-        if match.group(2):
-            triples.append((match.group(1), "extends", match.group(2)))
-        if match.group(3):
-            interfaces = [iface.strip() for iface in match.group(3).split(",") if iface.strip()]
-            triples.extend([(match.group(1), "implements", iface) for iface in interfaces])
-        return triples
-
-    def _extract_interface_relations(self, match):
-        """Extract interface-related triples"""
-        triples = [(match.group(1), "isTypeOf", "Interface")]
-        if match.group(2):
-            parents = [parent.strip() for parent in match.group(2).split(",") if parent.strip()]
-            triples.extend([(match.group(1), "extends", parent) for parent in parents])
-        return triples
-
-    def _extract_method_relations(self, match):
-        """Extract method-related triples"""
-        return [(match.group(2), "hasReturnType", match.group(1)),
-                (match.group(2), "isTypeOf", "Method")]
-
-    def _extract_method_call_relations(self, match):
-        """Extract method call triples"""
-        return [(match.group(1), "hasMethod", match.group(2))]
-
-    def _extract_instantiation_relations(self, match):
-        """Extract instantiation triples"""
-        return [("Code", "instantiates", match.group(1))]
-
-    def _extract_collection_relations(self, match):
-        """Extract collection-related triples"""
-        return [(match.group(1), "isTypeOf", "Collection"),
-                (match.group(1), "belongsTo", "JavaCollections")]
-
-    def _extract_datatype_relations(self, match):
-        """Extract data type triples"""
-        return [(match.group(1), "isTypeOf", "DataType"),
-                (match.group(1), "belongsTo", "JavaPrimitives")]
-
-    def _extract_exception_relations(self, match):
-        """Extract exception handling triples"""
-        return [(match.group(1), "isTypeOf", "Exception"),
-                ("Code", "handles", match.group(1))]
-
-    def _extract_annotation_relations(self, match):
-        """Extract annotation triples"""
-        return [(match.group(1), "isTypeOf", "Annotation"),
-                ("Code", "uses", match.group(1))]
-
-    def _extract_import_relations(self, match):
-        """Extract import statement triples"""
-        return [(match.group(2), "belongsTo", match.group(1)),
-                ("Code", "imports", match.group(2))]
-
-    def _extract_spring_relations(self, match):
-        """Extract Spring framework triples"""
-        return [(match.group(1), "isTypeOf", "SpringAnnotation"),
-                (match.group(1), "belongsTo", "SpringFramework")]
-
-    def _extract_web_relations(self, match):
-        """Extract web concept triples"""
-        return [(match.group(1), "isTypeOf", "WebConcept"),
-                (match.group(1), "belongsTo", "WebDevelopment")]
-
-    def _extract_pattern_relations(self, match):
-        """Extract design pattern triples"""
-        return [(match.group(1), "isTypeOf", "DesignPattern"),
-                (match.group(1), "belongsTo", "SoftwareDesign")]
-
-    def preprocess_text(self, text):
-        """Clean and preprocess text for better extraction"""
-        if not text:
-            return ""
-
-        try:
-            # Remove HTML entities
-            text = re.sub(r'&[a-zA-Z]+;', ' ', text)
-
-            # Remove excessive whitespace
-            text = re.sub(r'\s+', ' ', text)
-
-            # Remove navigation and footer noise
-            noise_patterns = [
-                r'Try it Yourself.*?»',
-                r'❮\s*Previous\s*Next\s*❯',
-                r'W3Schools is optimized.*?',
-                r'Spaces.*?Tutorials.*?References.*?',
-            ]
-
-            for pattern in noise_patterns:
-                text = re.sub(pattern, ' ', text, flags=re.IGNORECASE | re.DOTALL)
-
-            return text.strip()
-        except Exception as e:
-            logger.error(f"Error preprocessing text: {e}")
-            return str(text) if text else ""
-
-    def extract_with_rebel(self, text):
-        """Extract triples using REBEL model with better error handling"""
+    def extract_with_rebel(self, text: str, technology: str) -> List[Dict]:
+        """Extract triples using REBEL model with ontology validation"""
         if not self.rebel_model or not self.rebel_tokenizer:
             return []
 
         try:
-            # Truncate text to model limits
+            import torch
+
+            # Truncate text if too long
             max_length = 512
             if len(text) > max_length:
                 text = text[:max_length]
 
-            # Tokenize with proper error handling
-            try:
-                inputs = self.rebel_tokenizer(
-                    text,
-                    return_tensors="pt",
-                    truncation=True,
-                    max_length=512,
-                    padding=True
-                )
-            except Exception as e:
-                logger.error(f"Tokenization error: {e}")
-                return []
+            inputs = self.rebel_tokenizer(
+                text,
+                return_tensors="pt",
+                truncation=True,
+                max_length=512,
+                padding=True
+            )
 
-            # Move inputs to same device as model
-            import torch
-            if torch.cuda.is_available() and next(self.rebel_model.parameters()).is_cuda:
+            if torch.cuda.is_available():
                 inputs = {k: v.cuda() for k, v in inputs.items()}
 
-            # Generate with better parameters
             with torch.no_grad():
                 outputs = self.rebel_model.generate(
                     input_ids=inputs["input_ids"],
                     attention_mask=inputs.get("attention_mask"),
                     max_length=256,
-                    num_beams=3,  # Reduced for faster inference
-                    early_stopping=True,
-                    do_sample=False,
-                    temperature=1.0
+                    num_beams=3,
+                    early_stopping=True
                 )
 
             decoded = self.rebel_tokenizer.decode(outputs[0], skip_special_tokens=True)
+            triples = self.parse_rebel_output(decoded, technology)
 
-            # Parse REBEL output
-            triples = self.parse_rebel_output(decoded)
+            # Filter triples using ontology knowledge
+            validated_triples = self.validate_triples_with_ontology(triples)
 
-            # Add metadata
-            for triple in triples:
-                triple['extraction_method'] = 'rebel'
-                triple['confidence'] = 0.8
-
-            return triples
+            return validated_triples
 
         except Exception as e:
             logger.error(f"REBEL extraction error: {e}")
             return []
 
-    def parse_rebel_output(self, rebel_text):
-        """Parse REBEL model output into structured triples"""
+    def parse_rebel_output(self, rebel_text: str, technology: str) -> List[Dict]:
+        """Parse REBEL output and enhance with ontology information"""
         triples = []
 
         try:
-            # REBEL uses specific format: <triplet> relation <subj> subject <obj> object
             pattern = r'<triplet>\s*(.*?)\s*<subj>\s*(.*?)\s*<obj>\s*(.*?)(?=<triplet>|$)'
             matches = re.findall(pattern, rebel_text, re.DOTALL)
 
             for match in matches:
                 if len(match) == 3:
-                    relation = match[0].strip()
-                    subject = match[1].strip()
-                    object_entity = match[2].strip()
+                    relation, subject, object_entity = [m.strip() for m in match]
 
-                    # Validate extracted components
-                    if relation and subject and object_entity and len(subject) > 1 and len(object_entity) > 1:
+                    if relation and subject and object_entity:
                         triples.append({
                             "subject": self.normalize_entity(subject),
                             "relation": self.normalize_relation(relation),
                             "object": self.normalize_entity(object_entity),
-                            "confidence": 0.85
+                            "confidence": 0.8,
+                            "extraction_method": "rebel",
+                            "technology": technology
                         })
 
         except Exception as e:
@@ -359,260 +395,272 @@ class ImprovedTripleExtractor:
 
         return triples
 
-    def extract_with_improved_patterns(self, text):
-        """Extract triples using improved pattern matching"""
-        triples = []
-        text = self.preprocess_text(text)
+    def validate_triples_with_ontology(self, triples: List[Dict]) -> List[Dict]:
+        """Validate and enhance triples using ontology knowledge"""
+        validated_triples = []
 
-        if not text:
-            return triples
+        for triple in triples:
+            subject = triple.get("subject", "")
+            relation = triple.get("relation", "")
+            obj = triple.get("object", "")
 
-        for category, patterns in self.extraction_patterns.items():
-            for pattern, extractor_func in patterns:
-                try:
-                    matches = re.finditer(pattern, text, re.IGNORECASE | re.MULTILINE)
+            # Check if entities are in our ontology or can be mapped
+            subject_valid = self.is_entity_valid(subject)
+            object_valid = self.is_entity_valid(obj)
+            relation_valid = relation in self.relations or self.find_similar_relation(relation)
 
-                    for match in matches:
-                        try:
-                            extracted_triples = extractor_func(match)
+            # Enhance confidence based on ontology validation
+            base_confidence = float(triple.get("confidence", 0.5))
 
-                            if extracted_triples:
-                                for triple_data in extracted_triples:
-                                    if triple_data and len(triple_data) == 3:
-                                        subject, relation, obj = triple_data
-                                        if subject and relation and obj:
-                                            triples.append({
-                                                "subject": self.normalize_entity(subject),
-                                                "relation": self.normalize_relation(relation),
-                                                "object": self.normalize_entity(obj),
-                                                "confidence": self.get_pattern_confidence(category),
-                                                "extraction_method": "improved_patterns",
-                                                "pattern_category": category
-                                            })
-                        except Exception as e:
-                            logger.warning(f"Error processing match in {category}: {e}")
-                            continue
+            if subject_valid and object_valid and relation_valid:
+                triple["confidence"] = min(0.95, base_confidence + 0.2)
+                triple["ontology_validated"] = True
+            elif (subject_valid or object_valid) and relation_valid:
+                triple["confidence"] = min(0.85, base_confidence + 0.1)
+                triple["ontology_validated"] = "partial"
+            else:
+                triple["confidence"] = max(0.3, base_confidence - 0.1)
+                triple["ontology_validated"] = False
 
-                except Exception as e:
-                    logger.error(f"Pattern extraction error in {category}: {e}")
-                    continue
+            # Map relations to ontology relations if possible
+            if not relation_valid:
+                similar_relation = self.find_similar_relation(relation)
+                if similar_relation:
+                    triple["relation"] = similar_relation
+                    triple["relation_mapped"] = True
 
-        return triples
+            validated_triples.append(triple)
 
-    def normalize_entity(self, entity):
-        """Normalize entity names with better validation"""
+        return validated_triples
+
+    def is_entity_valid(self, entity: str) -> bool:
+        """Check if entity is valid according to ontology"""
+        if not entity:
+            return False
+
+        # Direct match in ontology entities
+        if entity in self.entities:
+            return True
+
+        # Check in technology mappings
+        for tech_mappings in self.tech_mappings.values():
+            for mapped_terms in tech_mappings.values():
+                if entity in mapped_terms:
+                    return True
+
+        # Fuzzy matching (simple case-insensitive)
+        entity_lower = entity.lower()
+        for ont_entity in self.entities:
+            if entity_lower == ont_entity.lower():
+                return True
+
+        return False
+
+    def find_similar_relation(self, relation: str) -> Optional[str]:
+        """Find similar relation in ontology"""
+        if not relation:
+            return None
+
+        relation_lower = relation.lower()
+
+        # Direct match
+        for ont_relation in self.relations:
+            if relation_lower == ont_relation.lower():
+                return ont_relation
+
+        # Semantic similarity (simple mapping)
+        relation_mappings = {
+            "type": "isA",
+            "kind": "isA",
+            "instance": "instanceOf",
+            "part": "partOf",
+            "member": "memberOf",
+            "contain": "contains",
+            "include": "includes",
+            "use": "uses",
+            "employ": "employs",
+            "extend": "extends",
+            "inherit": "inherits"
+        }
+
+        for key, mapped_relation in relation_mappings.items():
+            if key in relation_lower and mapped_relation in self.relations:
+                return mapped_relation
+
+        return None
+
+    def normalize_entity(self, entity: str) -> str:
+        """Normalize entity names using ontology knowledge"""
         if not entity:
             return ""
 
-        try:
-            entity = str(entity).strip()
+        entity = str(entity).strip()
 
-            if not entity:
-                return ""
+        # First, check if it matches an ontology entity exactly
+        for ont_entity in self.entities:
+            if entity.lower() == ont_entity.lower():
+                return ont_entity
 
-            # Handle common variations
-            normalizations = {
-                'string': 'String',
-                'integer': 'Integer',
-                'arraylist': 'ArrayList',
-                'hashmap': 'HashMap',
-                'list': 'List',
-                'map': 'Map',
-                'set': 'Set'
-            }
+        # Check technology mappings
+        for tech_mappings in self.tech_mappings.values():
+            for general_entity, specific_terms in tech_mappings.items():
+                for specific_term in specific_terms:
+                    if entity.lower() == specific_term.lower():
+                        return specific_term
 
-            lower_entity = entity.lower()
-            if lower_entity in normalizations:
-                return normalizations[lower_entity]
+        # Basic normalization
+        entity = re.sub(r'[^\w.]', '', entity)
+        if entity and entity[0].isalpha():
+            return entity[0].upper() + entity[1:] if len(entity) > 1 else entity.upper()
 
-            # Remove special characters but keep alphanumeric and common programming chars
-            entity = re.sub(r'[^\w.]', '', entity)
+        return entity
 
-            # Capitalize first letter if it's a valid identifier
-            if entity and entity[0].isalpha():
-                return entity[0].upper() + entity[1:] if len(entity) > 1 else entity.upper()
-
-            return entity if entity else ""
-
-        except Exception as e:
-            logger.error(f"Error normalizing entity '{entity}': {e}")
-            return str(entity) if entity else ""
-
-    def normalize_relation(self, relation):
-        """Normalize relation names with better validation"""
+    def normalize_relation(self, relation: str) -> str:
+        """Normalize relation names using ontology knowledge"""
         if not relation:
             return "relatedTo"
 
-        try:
-            relation = str(relation).strip().lower()
+        # First check if it's already in ontology
+        for ont_relation in self.relations:
+            if relation.lower() == ont_relation.lower():
+                return ont_relation
 
-            if not relation:
-                return "relatedTo"
+        # Try to find similar relation
+        similar = self.find_similar_relation(relation)
+        if similar:
+            return similar
 
-            # Handle common variations
-            normalizations = {
-                'is_type_of': 'isTypeOf',
-                'has_method': 'hasMethod',
-                'belongs_to': 'belongsTo',
-                'is_a': 'isA',
-                'has_a': 'hasA',
-                'instance_of': 'instanceOf',
-                'subclass_of': 'subclassOf'
-            }
+        # Basic normalization
+        relation = str(relation).strip().lower()
+        relation = re.sub(r'[^\w]', '', relation)
 
-            if relation in normalizations:
-                return normalizations[relation]
+        return relation if relation else "relatedTo"
 
-            # Convert snake_case to camelCase
-            if '_' in relation:
-                parts = relation.split('_')
-                if len(parts) > 1:
-                    return parts[0] + ''.join(word.capitalize() for word in parts[1:])
-
-            # Remove special characters
-            relation = re.sub(r'[^\w]', '', relation)
-
-            return relation if relation else "relatedTo"
-
-        except Exception as e:
-            logger.error(f"Error normalizing relation '{relation}': {e}")
-            return "relatedTo"
-
-    def get_pattern_confidence(self, category):
-        """Get confidence score based on pattern category"""
-        confidence_map = {
-            'class_definition': 0.9,
-            'interface_definition': 0.9,
-            'method_definition': 0.8,
-            'collection_usage': 0.85,
-            'data_types': 0.9,
-            'exception_handling': 0.8,
-            'annotations': 0.85,
-            'imports': 0.75,
-            'spring_concepts': 0.8,
-            'web_concepts': 0.7,
-            'design_patterns': 0.75,
-            'method_call': 0.7,
-            'instantiation': 0.75
-        }
-        return confidence_map.get(category, 0.6)
-
-    def load_scraped_data(self):
-        """Load scraped content with better error handling"""
-        try:
-            if not self.scraped_data_file.exists():
-                # Try alternative paths
-                alternative_paths = [
-                    Path("w3schools_java_tutorials.json"),
-                    Path("data/w3schools_java_tutorials.json"),
-                    Path("scraped_content/w3schools_java_tutorials.json")
-                ]
-
-                for alt_path in alternative_paths:
-                    if alt_path.exists():
-                        self.scraped_data_file = alt_path
-                        break
-                else:
-                    raise FileNotFoundError(f"Scraped data file not found: {self.scraped_data_file}")
-
-            with open(self.scraped_data_file, 'r', encoding='utf-8') as f:
-                data = json.load(f)
-
-            if not isinstance(data, dict):
-                raise ValueError("Expected dictionary format in scraped data")
-
-            print(f"📁 Loaded scraped data from: {self.scraped_data_file}")
-            print(f"📊 Found {len(data)} entries")
-            return data
-
-        except FileNotFoundError as e:
-            print(f"❌ File not found: {e}")
-            print("💡 Make sure you have run the scraper first to generate the data file")
-            return None
-        except json.JSONDecodeError as e:
-            print(f"❌ Invalid JSON format: {e}")
-            return None
-        except Exception as e:
-            print(f"❌ Error loading scraped data: {e}")
-            return None
-
-    def extract_from_content(self, content):
-        """Extract triples from content using multiple methods"""
+    def extract_from_content(self, content: Dict, technology: str) -> List[Dict]:
+        """Main extraction method combining all approaches"""
         all_triples = []
 
         try:
-            # Validate content structure
-            if not isinstance(content, dict):
-                logger.warning("Invalid content structure")
-                return all_triples
+            # Method 1: Use pre-computed ontology mappings from web scraper
+            if self.use_ontology_guided_extraction:
+                ontology_triples = self.extract_with_ontology_mappings(content, technology)
+                all_triples.extend(ontology_triples)
 
-            # Extract from text content
+            # Method 2: Extract from text content using ontology-guided patterns
             if 'text_content' in content and isinstance(content['text_content'], list):
                 for text in content['text_content']:
                     if text and isinstance(text, str) and len(text.strip()) > 20:
-                        # Use REBEL if available
-                        if self.use_rebel and self.rebel_model:
-                            rebel_triples = self.extract_with_rebel(text)
-                            for triple in rebel_triples:
-                                triple['source_text'] = text[:100] + "..." if len(text) > 100 else text
-                                triple['source_url'] = content.get('url', 'unknown')
-                                triple['source_type'] = 'text'
-                            all_triples.extend(rebel_triples)
-
-                        # Use improved patterns
-                        if self.use_improved_patterns:
-                            pattern_triples = self.extract_with_improved_patterns(text)
+                        # Ontology-guided pattern extraction
+                        if self.use_ontology_guided_extraction:
+                            pattern_triples = self.extract_with_ontology_guided_patterns(text, technology)
                             for triple in pattern_triples:
-                                triple['source_text'] = text[:100] + "..." if len(text) > 100 else text
                                 triple['source_url'] = content.get('url', 'unknown')
                                 triple['source_type'] = 'text'
                             all_triples.extend(pattern_triples)
 
-            # Extract from code examples with enhanced patterns
+                        # REBEL extraction with ontology validation
+                        if self.use_rebel and self.rebel_model:
+                            rebel_triples = self.extract_with_rebel(text, technology)
+                            for triple in rebel_triples:
+                                triple['source_url'] = content.get('url', 'unknown')
+                                triple['source_type'] = 'text'
+                                triple['source_text'] = text[:100] + "..." if len(text) > 100 else text
+                            all_triples.extend(rebel_triples)
+
+            # Method 3: Extract from code examples with higher confidence
             if 'code_examples' in content and isinstance(content['code_examples'], list):
                 for code in content['code_examples']:
                     if code and isinstance(code, str) and len(code.strip()) > 30:
-                        pattern_triples = self.extract_with_improved_patterns(code)
-                        for triple in pattern_triples:
-                            triple['source_text'] = f"Code: {code[:80]}..." if len(code) > 80 else f"Code: {code}"
+                        code_triples = self.extract_with_ontology_guided_patterns(code, technology)
+                        for triple in code_triples:
                             triple['source_url'] = content.get('url', 'unknown')
                             triple['source_type'] = 'code'
-                            triple['confidence'] = min(1.0, triple.get('confidence', 0.6) + 0.1)  # Boost confidence for code
-                        all_triples.extend(pattern_triples)
+                            triple['source_text'] = f"Code: {code[:80]}..." if len(code) > 80 else f"Code: {code}"
+                            # Boost confidence for code examples
+                            triple['confidence'] = min(0.98, float(triple.get('confidence', 0.6)) + 0.15)
+                        all_triples.extend(code_triples)
 
         except Exception as e:
-            logger.error(f"Error extracting from content: {e}")
+            logger.error(f"Error extracting from content for {technology}: {e}")
 
         return all_triples
 
-    def deduplicate_triples(self, triples):
-        """Remove duplicate triples and merge similar ones"""
+    def load_scraped_data(self, technology: str) -> Optional[Dict]:
+        """Load scraped data for a technology"""
+        try:
+            data_file = self.input_dir / f"w3schools_{technology}_tutorials.json"
+
+            if not data_file.exists():
+                # Try alternative naming
+                alt_files = [
+                    self.input_dir / f"w3schools_{technology}.json",
+                    self.input_dir / f"{technology}.json"
+                ]
+
+                for alt_file in alt_files:
+                    if alt_file.exists():
+                        data_file = alt_file
+                        break
+                else:
+                    print(f"❌ No data file found for {technology}")
+                    return None
+
+            with open(data_file, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+
+            print(f"✅ Loaded data for {technology} from {data_file}")
+            return data.get('content', {})
+
+        except Exception as e:
+            print(f"❌ Error loading data for {technology}: {e}")
+            return None
+
+    def deduplicate_triples(self, triples: List[Dict]) -> List[Dict]:
+        """Enhanced deduplication considering ontology relationships"""
         if not triples:
             return []
 
         seen_triples = {}
+        entity_aliases = defaultdict(set)
+
+        # Build entity alias map using technology mappings
+        for tech_mappings in self.tech_mappings.values():
+            for general_entity, specific_terms in tech_mappings.items():
+                for specific_term in specific_terms:
+                    entity_aliases[general_entity].add(specific_term)
+                    entity_aliases[specific_term].add(general_entity)
 
         for triple in triples:
             try:
-                # Create a normalized key for deduplication
-                key = (
-                    str(triple.get('subject', '')).lower().strip(),
-                    str(triple.get('relation', '')).lower().strip(),
-                    str(triple.get('object', '')).lower().strip()
-                )
+                subject = str(triple.get('subject', '')).strip()
+                relation = str(triple.get('relation', '')).strip()
+                obj = str(triple.get('object', '')).strip()
+                technology = triple.get('technology', '')
 
-                # Skip invalid triples
-                if not all(key) or any(len(k) < 2 for k in key):
+                if not all([subject, relation, obj]) or any(len(x) < 2 for x in [subject, relation, obj]):
                     continue
+
+                # Create normalized key for deduplication
+                key = (
+                    subject.lower(),
+                    relation.lower(),
+                    obj.lower(),
+                    technology
+                )
 
                 if key not in seen_triples:
                     seen_triples[key] = triple
                 else:
-                    # Keep the one with higher confidence
+                    # Keep the triple with higher confidence
                     current_conf = float(triple.get('confidence', 0))
                     existing_conf = float(seen_triples[key].get('confidence', 0))
+
                     if current_conf > existing_conf:
                         seen_triples[key] = triple
+                    elif current_conf == existing_conf:
+                        # Prefer ontology-validated triples
+                        if triple.get('ontology_validated') and not seen_triples[key].get('ontology_validated'):
+                            seen_triples[key] = triple
 
             except Exception as e:
                 logger.warning(f"Error processing triple during deduplication: {e}")
@@ -620,127 +668,189 @@ class ImprovedTripleExtractor:
 
         return list(seen_triples.values())
 
-    def extract_all_triples(self):
-        """Main extraction method with improved quality"""
-        print("=" * 60)
-        print("🔍 Step 3: Advanced Triple Extraction")
-        print("=" * 60)
+    def extract_and_save(self) -> Optional[Dict]:
+        """Main extraction method with ontology integration"""
+        print("=" * 70)
+        print("🧠 Ontology-Aware Triple Extraction")
+        print("=" * 70)
 
-        scraped_data = self.load_scraped_data()
-        if not scraped_data:
-            return None
+        print(f"📚 Ontology loaded: {len(self.entities)} entities, {len(self.relations)} relations")
+        print(f"🔗 Technology mappings: {len(self.tech_mappings)} technologies")
+        print(f"🎯 Ontology-guided extraction: {'✅ Enabled' if self.use_ontology_guided_extraction else '❌ Disabled'}")
 
-        # Load REBEL model if requested
+        # Load REBEL if requested
         if self.use_rebel:
             rebel_loaded = self.load_rebel_model()
             if not rebel_loaded:
                 self.use_rebel = False
 
-        all_triples = []
-        total_pages = len(scraped_data)
-        processed_pages = 0
-        error_count = 0
-
-        print(f"📊 Processing {total_pages} pages with advanced extraction...")
         print(f"🤖 REBEL model: {'✅ Enabled' if self.rebel_model else '❌ Disabled'}")
-        print(f"🎯 Improved patterns: {'✅ Enabled' if self.use_improved_patterns else '❌ Disabled'}")
 
-        for i, (url, content) in enumerate(scraped_data.items(), 1):
-            try:
-                if isinstance(content, dict) and 'error' in content:
-                    error_count += 1
-                    continue
+        all_triples_by_tech = {}
+        total_pages = 0
+        processed_pages = 0
 
-                title = content.get('title', 'Unknown')[:50] if isinstance(content, dict) else 'Unknown'
-                print(f"🔄 Processing {i}/{total_pages}: {title}...")
+        for tech in self.technologies:
+            print(f"\n📊 Processing {tech.upper()}...")
+            scraped_data = self.load_scraped_data(tech)
 
-                triples = self.extract_from_content(content)
-                all_triples.extend(triples)
-                processed_pages += 1
-
-                if i % 10 == 0:
-                    print(f"📈 Progress: {i}/{total_pages} pages processed, {len(all_triples)} triples extracted")
-
-            except Exception as e:
-                logger.error(f"Error processing page {i}: {e}")
-                error_count += 1
+            if not scraped_data:
                 continue
 
-        print(f"✅ Extraction complete! Processed {processed_pages}/{total_pages} pages")
-        print(f"⚠️ Errors encountered: {error_count}")
-        print(f"📊 Found {len(all_triples)} raw triples")
+            tech_triples = []
+            tech_pages = len(scraped_data)
+            total_pages += tech_pages
 
-        if not all_triples:
-            print("❌ No triples extracted!")
-            return None
+            print(f"📄 Processing {tech_pages} pages for {tech.upper()}...")
 
-        # Deduplicate and improve quality
-        print("🧹 Deduplicating and improving quality...")
-        deduplicated_triples = self.deduplicate_triples(all_triples)
+            for i, (url, content) in enumerate(scraped_data.items(), 1):
+                try:
+                    if isinstance(content, dict) and 'error' in content:
+                        continue
 
-        print(f"📊 After deduplication: {len(deduplicated_triples)} unique triples")
-        return deduplicated_triples
+                    title = content.get('title', 'Unknown')[:50]
+                    print(f"🔄 Processing {i}/{tech_pages}: {title}...")
 
-    def save_triples(self, triples, filename="extracted_triples_improved.json"):
-        """Save improved triples with detailed metadata"""
+                    # Extract triples using all methods
+                    triples = self.extract_from_content(content, tech)
+                    tech_triples.extend(triples)
+                    processed_pages += 1
+
+                    if i % 10 == 0:
+                        print(f"📈 Progress: {i}/{tech_pages} pages, {len(tech_triples)} triples extracted")
+
+                except Exception as e:
+                    logger.error(f"Error processing page {i} for {tech}: {e}")
+                    continue
+
+            if tech_triples:
+                print(f"🧹 Deduplicating triples for {tech.upper()}...")
+                deduplicated_triples = self.deduplicate_triples(tech_triples)
+                all_triples_by_tech[tech] = deduplicated_triples
+
+                # Show ontology integration stats
+                ontology_validated = len([t for t in deduplicated_triples if t.get('ontology_validated') == True])
+                ontology_guided = len(
+                    [t for t in deduplicated_triples if t.get('extraction_method') == 'ontology_guided_patterns'])
+                ontology_mapped = len(
+                    [t for t in deduplicated_triples if t.get('extraction_method') == 'ontology_mapping'])
+
+                print(f"📊 {tech.upper()}: {len(deduplicated_triples)} unique triples")
+                print(f"   🎯 Ontology validated: {ontology_validated}")
+                print(f"   🔍 Ontology guided: {ontology_guided}")
+                print(f"   🗺️ Ontology mapped: {ontology_mapped}")
+
+        # Save results
+        if all_triples_by_tech:
+            filepaths = self.save_triples(all_triples_by_tech)
+
+            if filepaths:
+                print(f"\n✅ ONTOLOGY-AWARE EXTRACTION COMPLETED!")
+                print("-" * 50)
+
+                total_triples = sum(len(triples) for triples in all_triples_by_tech.values())
+                ontology_enhanced = sum(
+                    len([t for t in triples if t.get('ontology_validated') or
+                         t.get('extraction_method') in ['ontology_mapping', 'ontology_guided_patterns']])
+                    for triples in all_triples_by_tech.values()
+                )
+
+                print(f"📊 Total triples extracted: {total_triples:,}")
+                print(
+                    f"🧠 Ontology-enhanced triples: {ontology_enhanced:,} ({ontology_enhanced / total_triples * 100:.1f}%)")
+                print(f"📁 Output files: {len(filepaths)}")
+
+                return all_triples_by_tech
+
+        return None
+
+    def save_triples(self, triples_by_tech: Dict, base_filename: str = "ontology_enhanced_triples_") -> List[str]:
+        """Save triples with ontology enhancement metadata"""
+        filepaths = []
+
         try:
-            if not triples:
-                print("❌ No triples to save!")
-                return None
-
             self.output_dir.mkdir(parents=True, exist_ok=True)
-            filepath = self.output_dir / filename
 
-            # Safely categorize triples
-            high_confidence = []
-            medium_confidence = []
-            low_confidence = []
-            rebel_triples = []
-            pattern_triples = []
+            for tech, triples in triples_by_tech.items():
+                if not triples:
+                    continue
 
-            for t in triples:
-                conf = float(t.get('confidence', 0))
-                if conf > 0.8:
-                    high_confidence.append(t)
-                elif conf >= 0.6:
-                    medium_confidence.append(t)
-                else:
-                    low_confidence.append(t)
+                filepath = self.output_dir / f"{base_filename}{tech}.json"
 
-                method = t.get('extraction_method', '')
-                if method == 'rebel':
-                    rebel_triples.append(t)
-                elif method == 'improved_patterns':
-                    pattern_triples.append(t)
+                # Categorize triples by confidence and method
+                high_confidence = [t for t in triples if float(t.get('confidence', 0)) > 0.8]
+                medium_confidence = [t for t in triples if 0.6 <= float(t.get('confidence', 0)) <= 0.8]
+                low_confidence = [t for t in triples if float(t.get('confidence', 0)) < 0.6]
 
-            # Calculate statistics safely
-            relation_stats = defaultdict(lambda: {'count': 0, 'avg_confidence': 0})
-            for triple in triples:
-                rel = triple.get('relation', 'unknown')
-                relation_stats[rel]['count'] += 1
-                relation_stats[rel]['avg_confidence'] += float(triple.get('confidence', 0))
+                # Categorize by extraction method
+                ontology_mapped = [t for t in triples if t.get('extraction_method') == 'ontology_mapping']
+                ontology_guided = [t for t in triples if t.get('extraction_method') == 'ontology_guided_patterns']
+                rebel_triples = [t for t in triples if t.get('extraction_method') == 'rebel']
 
-            for rel in relation_stats:
-                if relation_stats[rel]['count'] > 0:
-                    relation_stats[rel]['avg_confidence'] /= relation_stats[rel]['count']
+                # Categorize by ontology validation
+                ontology_validated = [t for t in triples if t.get('ontology_validated') == True]
+                partially_validated = [t for t in triples if t.get('ontology_validated') == 'partial']
+                not_validated = [t for t in triples if t.get('ontology_validated') == False]
 
-            # Get unique entities safely
-            unique_entities = set()
-            for t in triples:
-                unique_entities.add(str(t.get('subject', '')))
-                unique_entities.add(str(t.get('object', '')))
-            unique_entities.discard('')  # Remove empty strings
+                # Calculate statistics
+                relation_stats = defaultdict(lambda: {'count': 0, 'avg_confidence': 0})
+                entity_stats = defaultdict(lambda: {'as_subject': 0, 'as_object': 0})
 
-            avg_confidence = sum(float(t.get('confidence', 0)) for t in triples) / len(triples) if triples else 0
+                for triple in triples:
+                    rel = triple.get('relation', 'unknown')
+                    relation_stats[rel]['count'] += 1
+                    relation_stats[rel]['avg_confidence'] += float(triple.get('confidence', 0))
 
-            output_data = {
-                "metadata": {
+                    subj = triple.get('subject', '')
+                    obj = triple.get('object', '')
+                    if subj:
+                        entity_stats[subj]['as_subject'] += 1
+                    if obj:
+                        entity_stats[obj]['as_object'] += 1
+
+                for rel in relation_stats:
+                    if relation_stats[rel]['count'] > 0:
+                        relation_stats[rel]['avg_confidence'] /= relation_stats[rel]['count']
+
+                # Ontology coverage analysis
+                entities_in_ontology = set()
+                relations_in_ontology = set()
+
+                for triple in triples:
+                    subj = triple.get('subject', '')
+                    rel = triple.get('relation', '')
+                    obj = triple.get('object', '')
+
+                    if subj in self.entities:
+                        entities_in_ontology.add(subj)
+                    if obj in self.entities:
+                        entities_in_ontology.add(obj)
+                    if rel in self.relations:
+                        relations_in_ontology.add(rel)
+
+                avg_confidence = sum(float(t.get('confidence', 0)) for t in triples) / len(triples) if triples else 0
+
+                metadata = {
                     "created_at": datetime.now().isoformat(),
+                    "technology": tech,
+                    "ontology_integration": {
+                        "ontology_file": str(self.ontology_file),
+                        "total_ontology_entities": len(self.entities),
+                        "total_ontology_relations": len(self.relations),
+                        "entities_found_in_triples": len(entities_in_ontology),
+                        "relations_found_in_triples": len(relations_in_ontology),
+                        "ontology_entity_coverage": len(entities_in_ontology) / len(
+                            self.entities) if self.entities else 0,
+                        "ontology_relation_coverage": len(relations_in_ontology) / len(
+                            self.relations) if self.relations else 0
+                    },
                     "extraction_methods": {
+                        "ontology_mapping_enabled": self.use_ontology_guided_extraction,
+                        "ontology_guided_patterns_enabled": self.use_ontology_guided_extraction,
                         "rebel_enabled": self.use_rebel and self.rebel_model is not None,
-                        "improved_patterns_enabled": self.use_improved_patterns,
-                        "rebel_triples": len(rebel_triples),
-                        "pattern_triples": len(pattern_triples)
+                        "ontology_mapped_triples": len(ontology_mapped),
+                        "ontology_guided_triples": len(ontology_guided),
+                        "rebel_triples": len(rebel_triples)
                     },
                     "quality_metrics": {
                         "total_triples": len(triples),
@@ -748,346 +858,169 @@ class ImprovedTripleExtractor:
                         "medium_confidence": len(medium_confidence),
                         "low_confidence": len(low_confidence),
                         "avg_confidence": avg_confidence,
+                        "ontology_validated": len(ontology_validated),
+                        "partially_validated": len(partially_validated),
+                        "not_validated": len(not_validated),
                         "unique_relations": len(relation_stats),
-                        "unique_entities": len(unique_entities)
+                        "unique_entities": len(entity_stats)
                     },
-                    "relation_statistics": dict(relation_stats)
-                },
-                "triples": {
-                    "high_confidence": high_confidence,
-                    "medium_confidence": medium_confidence,
-                    "low_confidence": low_confidence,
-                    "by_method": {
-                        "rebel": rebel_triples,
-                        "patterns": pattern_triples
-                    },
-                    "all": triples
+                    "ontology_validation_stats": {
+                        "fully_validated": len(ontology_validated),
+                        "partially_validated": len(partially_validated),
+                        "not_validated": len(not_validated),
+                        "validation_rate": len(ontology_validated) / len(triples) if triples else 0
+                    }
                 }
-            }
 
-            with open(filepath, 'w', encoding='utf-8') as f:
-                json.dump(output_data, f, indent=2, ensure_ascii=False)
+                output_data = {
+                    "metadata": metadata,
+                    "ontology_info": {
+                        "entities_used": sorted(list(entities_in_ontology)),
+                        "relations_used": sorted(list(relations_in_ontology)),
+                        "technology_mappings": self.tech_mappings.get(tech, {})
+                    },
+                    "triples": {
+                        "by_confidence": {
+                            "high_confidence": high_confidence,
+                            "medium_confidence": medium_confidence,
+                            "low_confidence": low_confidence
+                        },
+                        "by_method": {
+                            "ontology_mapping": ontology_mapped,
+                            "ontology_guided_patterns": ontology_guided,
+                            "rebel": rebel_triples
+                        },
+                        "by_validation": {
+                            "ontology_validated": ontology_validated,
+                            "partially_validated": partially_validated,
+                            "not_validated": not_validated
+                        },
+                        "all": triples
+                    },
+                    "statistics": {
+                        "relation_statistics": dict(relation_stats),
+                        "entity_statistics": dict(entity_stats)
+                    }
+                }
 
-            print(f"💾 Improved triples saved to: {filepath}")
+                with open(filepath, 'w', encoding='utf-8') as f:
+                    json.dump(output_data, f, indent=2, ensure_ascii=False)
 
-            # Print quality summary
-            self.print_quality_summary(output_data)
+                file_size = os.path.getsize(filepath) / (1024 * 1024)
+                print(f"💾 Enhanced triples saved to: {filepath}")
+                print(f"📏 File size: {file_size:.2f} MB")
+                filepaths.append(str(filepath))
 
-            return filepath
+                self.print_ontology_integration_summary(output_data)
+
+            return filepaths
 
         except Exception as e:
             print(f"❌ Error saving triples: {e}")
-            logger.error(f"Save error details: {e}")
-            return None
+            return []
 
-    def print_quality_summary(self, data):
-        """Print detailed quality summary"""
+    def print_ontology_integration_summary(self, data: Dict):
+        """Print detailed summary of ontology integration"""
         try:
             metadata = data['metadata']
+            tech = metadata['technology'].upper()
             quality = metadata['quality_metrics']
-
-            print(f"\n📊 EXTRACTION QUALITY SUMMARY")
-            print("=" * 35)
-            print(f"🔢 Total triples: {quality['total_triples']:,}")
-
-            total = quality['total_triples']
-            if total > 0:
-                print(f"🎯 High confidence (>0.8): {quality['high_confidence']:,} ({quality['high_confidence']/total*100:.1f}%)")
-                print(f"📊 Medium confidence (0.6-0.8): {quality['medium_confidence']:,} ({quality['medium_confidence']/total*100:.1f}%)")
-
-            print(f"📈 Average confidence: {quality['avg_confidence']:.3f}")
-            print(f"🔗 Unique relations: {quality['unique_relations']}")
-            print(f"🏷️ Unique entities: {quality['unique_entities']}")
-
+            ontology = metadata['ontology_integration']
+            validation = metadata['ontology_validation_stats']
             methods = metadata['extraction_methods']
+
+            print(f"\n🧠 ONTOLOGY INTEGRATION SUMMARY FOR {tech}")
+            print("=" * 45)
+
+            # Basic stats
+            print(f"🔢 Total triples: {quality['total_triples']:,}")
+            print(f"📈 Average confidence: {quality['avg_confidence']:.3f}")
+
+            # Ontology coverage
+            print(f"\n📚 Ontology Coverage:")
+            print(f"   • Entities in ontology: {ontology['total_ontology_entities']}")
+            print(f"   • Relations in ontology: {ontology['total_ontology_relations']}")
+            print(f"   • Entities found in triples: {ontology['entities_found_in_triples']}")
+            print(f"   • Relations found in triples: {ontology['relations_found_in_triples']}")
+            print(f"   • Entity coverage: {ontology['ontology_entity_coverage'] * 100:.1f}%")
+            print(f"   • Relation coverage: {ontology['ontology_relation_coverage'] * 100:.1f}%")
+
+            # Validation stats
+            print(f"\n✅ Ontology Validation:")
+            print(
+                f"   • Fully validated: {validation['fully_validated']:,} ({validation['validation_rate'] * 100:.1f}%)")
+            print(f"   • Partially validated: {validation['partially_validated']:,}")
+            print(f"   • Not validated: {validation['not_validated']:,}")
+
+            # Extraction methods
+            print(f"\n🔍 Extraction Methods:")
+            if methods['ontology_mapping_enabled']:
+                print(f"   • Ontology mapping: {methods['ontology_mapped_triples']:,}")
+            if methods['ontology_guided_patterns_enabled']:
+                print(f"   • Ontology-guided patterns: {methods['ontology_guided_triples']:,}")
             if methods['rebel_enabled']:
-                print(f"🤖 REBEL triples: {methods['rebel_triples']:,}")
-            print(f"🎯 Pattern triples: {methods['pattern_triples']:,}")
-
-            # Top relations
-            rel_stats = metadata['relation_statistics']
-            if rel_stats:
-                top_relations = sorted(rel_stats.items(), key=lambda x: x[1]['count'], reverse=True)[:10]
-
-                print(f"\n🔗 TOP RELATIONS:")
-                for rel, stats in top_relations:
-                    print(f"   • {rel}: {stats['count']:,} ({stats['avg_confidence']:.2f} avg confidence)")
+                print(f"   • REBEL (ontology-enhanced): {methods['rebel_triples']:,}")
 
         except Exception as e:
-            logger.error(f"Error printing quality summary: {e}")
-            print("⚠️ Could not generate quality summary")
-
-    def extract_and_save(self):
-        """Main method with comprehensive extraction and quality analysis"""
-        try:
-            triples = self.extract_all_triples()
-
-            if not triples:
-                print("❌ No triples extracted")
-                return None
-
-            filepath = self.save_triples(triples)
-
-            if filepath:
-                print(f"\n✅ IMPROVED EXTRACTION COMPLETED!")
-                print("-" * 40)
-                print(f"📁 Output file: {filepath}")
-                print(f"🚀 Ready for Step 4: Dynamic Ontology Update")
-                return triples
-
-            return None
-
-        except Exception as e:
-            print(f"❌ Error in extraction process: {e}")
-            logger.error(f"Extraction process error: {e}")
-            return None
-
-
-class KGQualityTuner:
-    """Additional tools for fine-tuning KG quality"""
-
-    def __init__(self, triples_file="data/extracted_triples/extracted_triples_improved.json"):
-        self.triples_file = Path(triples_file)
-
-    def filter_low_quality_triples(self, min_confidence=0.5, min_entity_length=2):
-        """Filter out low-quality triples"""
-        try:
-            if not self.triples_file.exists():
-                print(f"❌ Triples file not found: {self.triples_file}")
-                return []
-
-            with open(self.triples_file, 'r', encoding='utf-8') as f:
-                data = json.load(f)
-
-            all_triples = data.get('triples', {}).get('all', [])
-
-            if not all_triples:
-                print("❌ No triples found in file")
-                return []
-
-            # Filter criteria
-            filtered_triples = []
-            for triple in all_triples:
-                try:
-                    confidence = float(triple.get('confidence', 0))
-                    subject = str(triple.get('subject', '')).strip()
-                    obj = str(triple.get('object', '')).strip()
-
-                    if (confidence >= min_confidence and
-                        len(subject) >= min_entity_length and
-                        len(obj) >= min_entity_length and
-                        subject.lower() != obj.lower() and
-                        subject and obj):  # Ensure not empty
-                        filtered_triples.append(triple)
-                except Exception as e:
-                    logger.warning(f"Error filtering triple: {e}")
-                    continue
-
-            print(f"🧹 Filtered {len(all_triples)} → {len(filtered_triples)} triples")
-            if all_triples:
-                print(f"📈 Quality improvement: {len(filtered_triples)/len(all_triples)*100:.1f}% retained")
-
-            return filtered_triples
-
-        except Exception as e:
-            print(f"❌ Error filtering triples: {e}")
-            return []
-
-    def merge_similar_entities(self, triples):
-        """Merge similar entity names"""
-        if not triples:
-            return []
-
-        entity_mappings = {
-            'string': 'String',
-            'arraylist': 'ArrayList',
-            'hashmap': 'HashMap',
-            'exception': 'Exception',
-            'integer': 'Integer',
-            'list': 'List',
-            'map': 'Map',
-            'set': 'Set',
-            'collection': 'Collection'
-        }
-
-        try:
-            for triple in triples:
-                subject = str(triple.get('subject', '')).strip().lower()
-                obj = str(triple.get('object', '')).strip().lower()
-
-                if subject in entity_mappings:
-                    triple['subject'] = entity_mappings[subject]
-                if obj in entity_mappings:
-                    triple['object'] = entity_mappings[obj]
-
-        except Exception as e:
-            logger.error(f"Error merging similar entities: {e}")
-
-        return triples
-
-    def validate_triples(self, triples):
-        """Validate triple structure and content"""
-        if not triples:
-            return []
-
-        valid_triples = []
-        invalid_count = 0
-
-        for triple in triples:
-            try:
-                # Check required fields
-                if not all(key in triple for key in ['subject', 'relation', 'object']):
-                    invalid_count += 1
-                    continue
-
-                # Check non-empty values
-                subject = str(triple['subject']).strip()
-                relation = str(triple['relation']).strip()
-                obj = str(triple['object']).strip()
-
-                if not all([subject, relation, obj]):
-                    invalid_count += 1
-                    continue
-
-                # Check reasonable lengths
-                if any(len(x) < 2 for x in [subject, relation, obj]):
-                    invalid_count += 1
-                    continue
-
-                # Check for circular references
-                if subject.lower() == obj.lower():
-                    invalid_count += 1
-                    continue
-
-                valid_triples.append(triple)
-
-            except Exception as e:
-                logger.warning(f"Error validating triple: {e}")
-                invalid_count += 1
-                continue
-
-        if invalid_count > 0:
-            print(f"⚠️ Removed {invalid_count} invalid triples")
-
-        return valid_triples
+            logger.error(f"Error printing ontology integration summary: {e}")
+            print("⚠️ Could not generate integration summary")
 
 
 def main():
-    """Run improved triple extraction with comprehensive error handling"""
-    print("🎯 Advanced Knowledge Graph Triple Extractor")
-    print("-" * 50)
+    """Run ontology-aware triple extraction"""
+    print("🧠 Ontology-Aware Knowledge Graph Triple Extractor")
+    print("=" * 55)
 
-    # Configuration options
-    use_rebel = True  # Set to False if you don't have transformers installed
-    use_improved_patterns = True
-
-    print(f"🤖 REBEL extraction: {'✅ Enabled' if use_rebel else '❌ Disabled'}")
-    print(f"🎯 Improved patterns: {'✅ Enabled' if use_improved_patterns else '❌ Disabled'}")
+    print("🎯 Features:")
+    print("   • Leverages generalized ontology for guided extraction")
+    print("   • Uses pre-computed ontology mappings from web scraper")
+    print("   • Validates triples against ontology knowledge")
+    print("   • Enhanced confidence scoring based on ontology validation")
+    print("   • Technology-specific pattern matching")
 
     try:
-        extractor = ImprovedTripleExtractor(
-            use_rebel=use_rebel,
-            use_improved_patterns=use_improved_patterns
+        extractor = OntologyAwareTripleExtractor(
+            use_rebel=True,
+            use_ontology_guided_extraction=True
         )
 
-        triples = extractor.extract_and_save()
+        triples_by_tech = extractor.extract_and_save()
 
-        if triples:
-            print(f"\n🔍 SAMPLE IMPROVED TRIPLES")
-            print("-" * 30)
+        if triples_by_tech:
+            print(f"\n🔍 ONTOLOGY-ENHANCED SAMPLE TRIPLES")
+            print("-" * 40)
 
-            # Show diverse examples
-            high_conf_triples = [t for t in triples if float(t.get('confidence', 0)) > 0.8]
+            for tech, triples in list(triples_by_tech.items())[:3]:  # Show first 3 technologies
+                if triples:
+                    validated_triples = [t for t in triples if t.get('ontology_validated') == True]
+                    sample_count = min(3, len(validated_triples))
 
-            sample_count = min(5, len(high_conf_triples))
-            for i, triple in enumerate(high_conf_triples[:sample_count], 1):
-                method = triple.get('extraction_method', 'unknown')
-                conf = float(triple.get('confidence', 0))
-                print(f"{i}. {triple['subject']} --[{triple['relation']}]--> {triple['object']}")
-                print(f"   Method: {method}, Confidence: {conf:.2f}")
+                    print(f"\n{tech.upper()} - Ontology Validated Triples:")
+                    for i, triple in enumerate(validated_triples[:sample_count], 1):
+                        method = triple.get('extraction_method', 'unknown')
+                        conf = float(triple.get('confidence', 0))
+                        validation = triple.get('ontology_validated', False)
 
-            print(f"\n🎯 QUALITY IMPROVEMENTS ACHIEVED:")
-            print("• More specific relationship types")
-            print("• Better entity normalization")
-            print("• Higher confidence scores")
-            print("• Reduced noise and duplicates")
-            print("• Framework-specific concepts captured")
-            print("• Comprehensive error handling")
+                        print(f"{i}. {triple['subject']} --[{triple['relation']}]--> {triple['object']}")
+                        print(f"   Method: {method}, Confidence: {conf:.2f}, Validated: {validation}")
 
-            print(f"\n✅ Ready for Step 4: Update Ontology with new concepts!")
+            print(f"\n🎯 ONTOLOGY INTEGRATION BENEFITS:")
+            print("• Higher quality triples through ontology validation")
+            print("• Consistent entity and relation naming")
+            print("• Technology-agnostic knowledge representation")
+            print("• Enhanced confidence scoring")
+            print("• Systematic coverage of domain concepts")
 
-            # Optional quality tuning
-            print(f"\n🔧 OPTIONAL: Quality Tuning Available")
-            print("Run quality tuner to further refine results:")
-            print("tuner = KGQualityTuner()")
-            print("filtered = tuner.filter_low_quality_triples(min_confidence=0.7)")
+            return triples_by_tech
 
-            return triples
         else:
-            print("❌ Improved extraction failed!")
-            print("\n🔍 TROUBLESHOOTING TIPS:")
-            print("1. Check if scraped data file exists")
-            print("2. Verify JSON format is valid")
-            print("3. Ensure sufficient disk space")
-            print("4. Check file permissions")
-            print("5. Review log messages above for specific errors")
+            print("❌ Extraction failed!")
             return None
 
     except Exception as e:
-        print(f"❌ Critical error in main execution: {e}")
-        logger.error(f"Main execution error: {e}")
-
-        print(f"\n🔍 COMMON SOLUTIONS:")
-        print("1. Install required packages: pip install torch transformers sentencepiece")
-        print("2. Check input file path and format")
-        print("3. Ensure output directory is writable")
-        print("4. Try with use_rebel=False if REBEL model fails")
-
+        print(f"❌ Critical error: {e}")
         return None
 
 
-def run_quality_analysis(triples_file="data/extracted_triples/extracted_triples_improved.json"):
-    """Standalone function to analyze and improve triple quality"""
-    print("🔍 Running Quality Analysis...")
-
-    try:
-        tuner = KGQualityTuner(triples_file)
-
-        # Filter low quality
-        filtered = tuner.filter_low_quality_triples(min_confidence=0.6)
-
-        if filtered:
-            # Merge similar entities
-            merged = tuner.merge_similar_entities(filtered)
-
-            # Validate final results
-            validated = tuner.validate_triples(merged)
-
-            print(f"✅ Quality analysis complete!")
-            print(f"📊 Final count: {len(validated)} high-quality triples")
-
-            return validated
-        else:
-            print("❌ No triples passed quality filter")
-            return []
-
-    except Exception as e:
-        print(f"❌ Error in quality analysis: {e}")
-        return []
-
-
 if __name__ == "__main__":
-    # Run main extraction
-    result = main()
-
-    # Optional: Run quality analysis if extraction succeeded
-    if result:
-        print(f"\n" + "="*50)
-        print("🎯 Optional: Run Quality Analysis? (y/n)")
-        try:
-            # Note: In a real environment, you'd want user input here
-            # For now, we'll skip the interactive part
-            print("💡 To run quality analysis manually, call:")
-            print("run_quality_analysis()")
-        except:
-            pass
+    main()
