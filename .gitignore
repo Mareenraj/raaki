@@ -194,11 +194,9 @@ tmp/
 *.pickle
 
 # Large datasets
-*.csv
-*.json
+
 # Exception: Keep small config files
-!config/*.json
-!data/ontology/*.json
+
 
 # Archives
 *.zip
