@@ -1,0 +1,2957 @@
+[
+  {
+    "name": "Applications",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Mobile",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Method",
+    "type": "Entity",
+    "source_count": 348
+  },
+  {
+    "name": "Platforms",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Different",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Support",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Community",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Get",
+    "type": "Entity",
+    "source_count": 12
+  },
+  {
+    "name": "Webconcept",
+    "type": "Entity",
+    "source_count": 5
+  },
+  {
+    "name": "Webdevelopment",
+    "type": "Entity",
+    "source_count": 5
+  },
+  {
+    "name": "Main",
+    "type": "Entity",
+    "source_count": 14
+  },
+  {
+    "name": "Class",
+    "type": "Entity",
+    "source_count": 110
+  },
+  {
+    "name": "Void",
+    "type": "Entity",
+    "source_count": 32
+  },
+  {
+    "name": "Out",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Println",
+    "type": "Entity",
+    "source_count": 8
+  },
+  {
+    "name": "String",
+    "type": "Entity",
+    "source_count": 19
+  },
+  {
+    "name": "Datatype",
+    "type": "Entity",
+    "source_count": 9
+  },
+  {
+    "name": "Javaprimitives",
+    "type": "Entity",
+    "source_count": 9
+  },
+  {
+    "name": "Prompt",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Command",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "This",
+    "type": "Entity",
+    "source_count": 5
+  },
+  {
+    "name": "Like",
+    "type": "Entity",
+    "source_count": 4
+  },
+  {
+    "name": "Java",
+    "type": "Entity",
+    "source_count": 13
+  },
+  {
+    "name": "Lts",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Hotspot",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Name",
+    "type": "Entity",
+    "source_count": 6
+  },
+  {
+    "name": "Must",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Editor",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Text",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "The",
+    "type": "Entity",
+    "source_count": 55
+  },
+  {
+    "name": "That",
+    "type": "Entity",
+    "source_count": 4
+  },
+  {
+    "name": "Screen",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "And",
+    "type": "Entity",
+    "source_count": 11
+  },
+  {
+    "name": "Semicolon",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Short",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Many",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Double",
+    "type": "Entity",
+    "source_count": 35
+  },
+  {
+    "name": "Print",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "To",
+    "type": "Entity",
+    "source_count": 13
+  },
+  {
+    "name": "Space",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Extra",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Use",
+    "type": "Entity",
+    "source_count": 9
+  },
+  {
+    "name": "Put",
+    "type": "Entity",
+    "source_count": 7
+  },
+  {
+    "name": "Slashes",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Forward",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "By",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Comment",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Line",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Integers",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Stores",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Integer",
+    "type": "Entity",
+    "source_count": 27
+  },
+  {
+    "name": "Float",
+    "type": "Entity",
+    "source_count": 9
+  },
+  {
+    "name": "Character",
+    "type": "Entity",
+    "source_count": 5
+  },
+  {
+    "name": "Boolean",
+    "type": "Entity",
+    "source_count": 24
+  },
+  {
+    "name": "Type",
+    "type": "Entity",
+    "source_count": 8
+  },
+  {
+    "name": "Others",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Want",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Keyword",
+    "type": "Entity",
+    "source_count": 5
+  },
+  {
+    "name": "Final",
+    "type": "Entity",
+    "source_count": 4
+  },
+  {
+    "name": "Operator",
+    "type": "Entity",
+    "source_count": 4
+  },
+  {
+    "name": "Mathematical",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Names",
+    "type": "Entity",
+    "source_count": 4
+  },
+  {
+    "name": "Descriptive",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Words",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Reserved",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Data",
+    "type": "Entity",
+    "source_count": 4
+  },
+  {
+    "name": "Rectangle",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Byte",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Long",
+    "type": "Entity",
+    "source_count": 12
+  },
+  {
+    "name": "Classes",
+    "type": "Entity",
+    "source_count": 5
+  },
+  {
+    "name": "Negative",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Or",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Are",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Characters",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Of",
+    "type": "Entity",
+    "source_count": 9
+  },
+  {
+    "name": "Programmer",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Letter",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Lowercase",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Uppercase",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Casting",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Widening",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Narrowing",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Parentheses",
+    "type": "Entity",
+    "source_count": 5
+  },
+  {
+    "name": "In",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Assignment",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Values",
+    "type": "Entity",
+    "source_count": 8
+  },
+  {
+    "name": "Two",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Than",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Length",
+    "type": "Entity",
+    "source_count": 9
+  },
+  {
+    "name": "Txt",
+    "type": "Entity",
+    "source_count": 4
+  },
+  {
+    "name": "Touppercase",
+    "type": "Entity",
+    "source_count": 4
+  },
+  {
+    "name": "Example",
+    "type": "Entity",
+    "source_count": 8
+  },
+  {
+    "name": "Tolowercase",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Indexof",
+    "type": "Entity",
+    "source_count": 4
+  },
+  {
+    "name": "Index",
+    "type": "Entity",
+    "source_count": 4
+  },
+  {
+    "name": "Empty",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Concat",
+    "type": "Entity",
+    "source_count": 4
+  },
+  {
+    "name": "Firstname",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "30",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Be",
+    "type": "Entity",
+    "source_count": 4
+  },
+  {
+    "name": "1020",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Backslash",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Has",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Math",
+    "type": "Entity",
+    "source_count": 5
+  },
+  {
+    "name": "Max",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Min",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Sqrt",
+    "type": "Entity",
+    "source_count": 4
+  },
+  {
+    "name": "Absolute",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Abs",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Random",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Testing",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Conditional",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Greater",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Expression",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "An",
+    "type": "Entity",
+    "source_count": 6
+  },
+  {
+    "name": "Equal",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Age",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Approach",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Better",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Conditions",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "About",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "If",
+    "type": "Entity",
+    "source_count": 11
+  },
+  {
+    "name": "Syntax",
+    "type": "Entity",
+    "source_count": 6
+  },
+  {
+    "name": "Letters",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Else",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Switch",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Rest",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "While",
+    "type": "Entity",
+    "source_count": 5
+  },
+  {
+    "name": "Variable",
+    "type": "Entity",
+    "source_count": 6
+  },
+  {
+    "name": "Condition",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "For",
+    "type": "Entity",
+    "source_count": 13
+  },
+  {
+    "name": "Executed",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Is",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Loop",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Times",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Table",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Multiplication",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Array",
+    "type": "Entity",
+    "source_count": 5
+  },
+  {
+    "name": "Iteration",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "One",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Element",
+    "type": "Entity",
+    "source_count": 4
+  },
+  {
+    "name": "Counter",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Third",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Second",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Dimensional",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Mymethod",
+    "type": "Entity",
+    "source_count": 9
+  },
+  {
+    "name": "Pass",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Checkage",
+    "type": "Entity",
+    "source_count": 4
+  },
+  {
+    "name": "Plusmethodint",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Plusmethoddouble",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Plusmethod",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Sum",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Fruit",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Car",
+    "type": "Entity",
+    "source_count": 8
+  },
+  {
+    "name": "Named",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Should",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "New",
+    "type": "Entity",
+    "source_count": 18
+  },
+  {
+    "name": "Code",
+    "type": "Entity",
+    "source_count": 54
+  },
+  {
+    "name": "Holds",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Attributes",
+    "type": "Entity",
+    "source_count": 4
+  },
+  {
+    "name": "Called",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Dot",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Pi",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Methods",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Call",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Mystaticmethod",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Mypublicmethod",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Myobj",
+    "type": "Entity",
+    "source_count": 16
+  },
+  {
+    "name": "Keywords",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "These",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Public",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Fullthrottle",
+    "type": "Entity",
+    "source_count": 4
+  },
+  {
+    "name": "Speed",
+    "type": "Entity",
+    "source_count": 5
+  },
+  {
+    "name": "Mycar",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "With",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Program",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Your",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Object",
+    "type": "Entity",
+    "source_count": 6
+  },
+  {
+    "name": "Filename",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Matching",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Attribute",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Constructor",
+    "type": "Entity",
+    "source_count": 4
+  },
+  {
+    "name": "Return",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Uninitialized",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Stay",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Variables",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Year",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Printinfo",
+    "type": "Entity",
+    "source_count": 4
+  },
+  {
+    "name": "Model",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Car1",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Car2",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Try",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Cannot",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Other",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Objects",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Create",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Run",
+    "type": "Entity",
+    "source_count": 5
+  },
+  {
+    "name": "Subclass",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Student",
+    "type": "Entity",
+    "source_count": 6
+  },
+  {
+    "name": "Study",
+    "type": "Entity",
+    "source_count": 4
+  },
+  {
+    "name": "Person",
+    "type": "Entity",
+    "source_count": 4
+  },
+  {
+    "name": "Same",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Getname",
+    "type": "Entity",
+    "source_count": 5
+  },
+  {
+    "name": "Setname",
+    "type": "Entity",
+    "source_count": 4
+  },
+  {
+    "name": "Parameter",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Packages",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Api",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Defined",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Single",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Import",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Package.name",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Package",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "You",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Scanner",
+    "type": "Entity",
+    "source_count": 5
+  },
+  {
+    "name": "Java.util",
+    "type": "Entity",
+    "source_count": 14
+  },
+  {
+    "name": "Documentation",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Nextline",
+    "type": "Entity",
+    "source_count": 5
+  },
+  {
+    "name": "Myclass",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "From",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Sign",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Asterisk",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Util",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Mypackageclass",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "File",
+    "type": "Entity",
+    "source_count": 10
+  },
+  {
+    "name": "Inheritance",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Being",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Vehicle",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "System",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Honk",
+    "type": "Entity",
+    "source_count": 4
+  },
+  {
+    "name": "Brand",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Would",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "When",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Animalsound",
+    "type": "Entity",
+    "source_count": 9
+  },
+  {
+    "name": "Sound",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Animal",
+    "type": "Entity",
+    "source_count": 8
+  },
+  {
+    "name": "Pig",
+    "type": "Entity",
+    "source_count": 6
+  },
+  {
+    "name": "Dog",
+    "type": "Entity",
+    "source_count": 5
+  },
+  {
+    "name": "Myanimal",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Mypig",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Mydog",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Super",
+    "type": "Entity",
+    "source_count": 4
+  },
+  {
+    "name": "Printtype",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Within",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Nest",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Outerclass",
+    "type": "Entity",
+    "source_count": 5
+  },
+  {
+    "name": "Innerclass",
+    "type": "Entity",
+    "source_count": 5
+  },
+  {
+    "name": "15",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Outputs",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Can",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "As",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Does",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Myinnermethod",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Myinner",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Interfaces",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "We",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Abstract",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Sleep",
+    "type": "Entity",
+    "source_count": 4
+  },
+  {
+    "name": "Interface",
+    "type": "Entity",
+    "source_count": 26
+  },
+  {
+    "name": "Implements",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "On",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Comma",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Democlass",
+    "type": "Entity",
+    "source_count": 6
+  },
+  {
+    "name": "Firstinterface",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Secondinterface",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Myothermethod",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Constants",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Enum",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Level",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Input",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "User",
+    "type": "Entity",
+    "source_count": 8
+  },
+  {
+    "name": "Nextboolean",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Description",
+    "type": "Entity",
+    "source_count": 5
+  },
+  {
+    "name": "Nextbyte",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Nextdouble",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Nextfloat",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Nextint",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Nextlong",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Nextshort",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Wrong",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Message",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Error",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Date",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Time",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Now",
+    "type": "Entity",
+    "source_count": 5
+  },
+  {
+    "name": "Its",
+    "type": "Entity",
+    "source_count": 4
+  },
+  {
+    "name": "Localdate",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Java.time",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Current",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Localtime",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Localdatetime",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Ofpattern",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Datetimeformatter",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Mydateobj",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Format",
+    "type": "Entity",
+    "source_count": 4
+  },
+  {
+    "name": "Statement",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Every",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "It",
+    "type": "Entity",
+    "source_count": 6
+  },
+  {
+    "name": "Using",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Flaws",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Logic",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Basic",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Most",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Exception",
+    "type": "Entity",
+    "source_count": 6
+  },
+  {
+    "name": "Handling",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Arithmeticexception",
+    "type": "Entity",
+    "source_count": 5
+  },
+  {
+    "name": "18",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Below",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Canread",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Canwrite",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Not",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Createnewfile",
+    "type": "Entity",
+    "source_count": 4
+  },
+  {
+    "name": "Delete",
+    "type": "Entity",
+    "source_count": 6
+  },
+  {
+    "name": "Exists",
+    "type": "Entity",
+    "source_count": 4
+  },
+  {
+    "name": "Getabsolutepath",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "List",
+    "type": "Entity",
+    "source_count": 14
+  },
+  {
+    "name": "Bytes",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Mkdir",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Directory",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Java.io",
+    "type": "Entity",
+    "source_count": 4
+  },
+  {
+    "name": "Occurs",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Ioexception",
+    "type": "Entity",
+    "source_count": 5
+  },
+  {
+    "name": "Createfile",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Specific",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Together",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Write",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Close",
+    "type": "Entity",
+    "source_count": 4
+  },
+  {
+    "name": "Writetofile",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Filewriter",
+    "type": "Entity",
+    "source_count": 5
+  },
+  {
+    "name": "Mywriter",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Readfile",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Myreader",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Hasnextline",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Filenotfoundexception",
+    "type": "Entity",
+    "source_count": 4
+  },
+  {
+    "name": "Getfileinfo",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Deletefile",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Deletefolder",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "ArrayList",
+    "type": "Entity",
+    "source_count": 9
+  },
+  {
+    "name": "Collection",
+    "type": "Entity",
+    "source_count": 6
+  },
+  {
+    "name": "Javacollections",
+    "type": "Entity",
+    "source_count": 6
+  },
+  {
+    "name": "Cars",
+    "type": "Entity",
+    "source_count": 9
+  },
+  {
+    "name": "Add",
+    "type": "Entity",
+    "source_count": 9
+  },
+  {
+    "name": "Hashset",
+    "type": "Entity",
+    "source_count": 5
+  },
+  {
+    "name": "Key",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "HashMap",
+    "type": "Entity",
+    "source_count": 5
+  },
+  {
+    "name": "Capitalcities",
+    "type": "Entity",
+    "source_count": 7
+  },
+  {
+    "name": "Yes",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "No",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Iterator",
+    "type": "Entity",
+    "source_count": 9
+  },
+  {
+    "name": "Hasnext",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Next",
+    "type": "Entity",
+    "source_count": 4
+  },
+  {
+    "name": "Thelistinterface",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Suchas",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Linkedlist",
+    "type": "Entity",
+    "source_count": 4
+  },
+  {
+    "name": "Modified",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Remove",
+    "type": "Entity",
+    "source_count": 8
+  },
+  {
+    "name": "Set",
+    "type": "Entity",
+    "source_count": 8
+  },
+  {
+    "name": "Clear",
+    "type": "Entity",
+    "source_count": 8
+  },
+  {
+    "name": "Size",
+    "type": "Entity",
+    "source_count": 6
+  },
+  {
+    "name": "Elements",
+    "type": "Entity",
+    "source_count": 4
+  },
+  {
+    "name": "Created",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Numbers",
+    "type": "Entity",
+    "source_count": 6
+  },
+  {
+    "name": "Store",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Mynumbers",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Sort",
+    "type": "Entity",
+    "source_count": 6
+  },
+  {
+    "name": "Collections",
+    "type": "Entity",
+    "source_count": 4
+  },
+  {
+    "name": "Addfirst",
+    "type": "Entity",
+    "source_count": 4
+  },
+  {
+    "name": "Reverseorder",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Contains",
+    "type": "Entity",
+    "source_count": 7
+  },
+  {
+    "name": "Treeset",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Automatically",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Sorted",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Order",
+    "type": "Entity",
+    "source_count": 4
+  },
+  {
+    "name": "Linkedhashset",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Added",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Were",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Value",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Treemap",
+    "type": "Entity",
+    "source_count": 5
+  },
+  {
+    "name": "Keyset",
+    "type": "Entity",
+    "source_count": 5
+  },
+  {
+    "name": "Keys",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "People",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Alphabetically",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Linkedhashmap",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Types",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Used",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Instead",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Myint",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Intvalue",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Mydouble",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Doublevalue",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Mychar",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Charvalue",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Tostring",
+    "type": "Entity",
+    "source_count": 4
+  },
+  {
+    "name": "Mystring",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Box",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Stringbox",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Intbox",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Printarray",
+    "type": "Entity",
+    "source_count": 4
+  },
+  {
+    "name": "Arrays",
+    "type": "Entity",
+    "source_count": 7
+  },
+  {
+    "name": "Stats",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Average",
+    "type": "Entity",
+    "source_count": 4
+  },
+  {
+    "name": "Num",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Intstats",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Doublestats",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Override",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Annotation",
+    "type": "Entity",
+    "source_count": 4
+  },
+  {
+    "name": "Makesound",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Deprecated",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Oldmethod",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Suppresswarnings",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Pattern",
+    "type": "Entity",
+    "source_count": 5
+  },
+  {
+    "name": "Compile",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Matcher",
+    "type": "Entity",
+    "source_count": 6
+  },
+  {
+    "name": "Find",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Java.util.regex",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Thread",
+    "type": "Entity",
+    "source_count": 6
+  },
+  {
+    "name": "Runnable",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Extends",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Start",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Otherclass",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Isalive",
+    "type": "Entity",
+    "source_count": 4
+  },
+  {
+    "name": "Finish",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Foreach",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Which",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Consumer",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Java.util.function",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Stringfunction",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Printformatted",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Sorting",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Advanced",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Allows",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Compare",
+    "type": "Entity",
+    "source_count": 4
+  },
+  {
+    "name": "Thecomparatorinterfacemightlooksomethinglikethis",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Might",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Sortbyyear",
+    "type": "Entity",
+    "source_count": 5
+  },
+  {
+    "name": "Comparator",
+    "type": "Entity",
+    "source_count": 4
+  },
+  {
+    "name": "Mycars",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Sortevenfirst",
+    "type": "Entity",
+    "source_count": 5
+  },
+  {
+    "name": "Rules",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "First",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Compareto",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Comparable",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Split",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Originalstr",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Charat",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Tochararray",
+    "type": "Entity",
+    "source_count": 4
+  },
+  {
+    "name": "Mystr",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Reference",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Odd",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Specified",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Codepointat",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Codepointbefore",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Codepointcount",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Comparetoignorecase",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Contentequals",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Copyvalueof",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Endswith",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Equals",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Equalsignorecase",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Getbytes",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Hashcode",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Intern",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Isempty",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Join",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Lastindexof",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Matches",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Offsetbycodepoints",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Regionmatches",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Replace",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Replaceall",
+    "type": "Entity",
+    "source_count": 4
+  },
+  {
+    "name": "Replacefirst",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Subsequence",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Substring",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Charsequence",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Trim",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Valueof",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Acos",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Addexact",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Asin",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Atan",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Atan2",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Coordinates",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Rectangular",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Polar",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Cbrt",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Ceil",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Copysign",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Cos",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Cosh",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Decrementexact",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Exp",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Expm1",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Floor",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Floordiv",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Floormod",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Getexponent",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Hypot",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Returns",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Ieeeremainder",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Incrementexact",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Log",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Logarithm",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Natural",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Log10",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Log1p",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Multiplyexact",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Negateexact",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Nextafter",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Nextdown",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Nextup",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Pow",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Rint",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Round",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Scalb",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Signum",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Sin",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Sinh",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Subtractexact",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Tan",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Tanh",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Todegrees",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Tointexact",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Toradians",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Ulp",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Precision",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Least",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Printf",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Console",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Copyof",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Deepequals",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Fill",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Mismatch",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Addall",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Clone",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Ensurecapacity",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Listiterator",
+    "type": "Entity",
+    "source_count": 4
+  },
+  {
+    "name": "Removeall",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Removeif",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Retainall",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Spliterator",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Sublist",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Toarray",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Addlast",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Descendingiterator",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Getfirst",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Getlast",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Offer",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Offerfirst",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Offerlast",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Peek",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Poll",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Removefirst",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Removefirstoccurrence",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Removelast",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Removelastoccurrence",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Compute",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Computeifabsent",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Computeifpresent",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Containskey",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Containsvalue",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Entryset",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Getordefault",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Putall",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Putifabsent",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Provides",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "After",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Field",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Accessing",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Default",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Encapsulation",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Private",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Access",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Inner",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Exceptions",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Running",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Concurrency",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Compiler",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Stack",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "W3schools",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Structures",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Control",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Programming",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Oriented",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Technology",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Information",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Metods",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Oop",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Full",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Challenges",
+    "type": "Entity",
+    "source_count": 3
+  },
+  {
+    "name": "Exam",
+    "type": "Entity",
+    "source_count": 2
+  },
+  {
+    "name": "Certification",
+    "type": "Entity",
+    "source_count": 1
+  },
+  {
+    "name": "Plan",
+    "type": "Entity",
+    "source_count": 2
+  }
+]

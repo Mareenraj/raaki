@@ -1,0 +1,85 @@
+{
+  "metadata": {
+    "created_at": "2025-07-31T13:27:17.761621",
+    "total_examples": 5,
+    "purpose": "model_validation",
+    "version": "1.0"
+  },
+  "examples": [
+    {
+      "id": "val_001",
+      "text": "LinkedList implements List and Deque interfaces",
+      "expected_relations": [
+        {
+          "subject": "LinkedList",
+          "relation": "implements",
+          "object": "List"
+        },
+        {
+          "subject": "LinkedList",
+          "relation": "implements",
+          "object": "Deque"
+        }
+      ]
+    },
+    {
+      "id": "val_002",
+      "text": "StringBuilder class has append method returning StringBuilder",
+      "expected_relations": [
+        {
+          "subject": "StringBuilder",
+          "relation": "hasMethod",
+          "object": "append"
+        },
+        {
+          "subject": "append",
+          "relation": "returns",
+          "object": "StringBuilder"
+        }
+      ]
+    },
+    {
+      "id": "val_003",
+      "text": "Service annotation marks Spring service layer components",
+      "expected_relations": [
+        {
+          "subject": "Service",
+          "relation": "isTypeOf",
+          "object": "Spring annotation"
+        },
+        {
+          "subject": "Service",
+          "relation": "marks",
+          "object": "service layer"
+        }
+      ]
+    },
+    {
+      "id": "val_004",
+      "text": "FileInputStream extends InputStream for file reading operations",
+      "expected_relations": [
+        {
+          "subject": "FileInputStream",
+          "relation": "extends",
+          "object": "InputStream"
+        },
+        {
+          "subject": "FileInputStream",
+          "relation": "usedFor",
+          "object": "file reading"
+        }
+      ]
+    },
+    {
+      "id": "val_005",
+      "text": "Optional class prevents null pointer exceptions",
+      "expected_relations": [
+        {
+          "subject": "Optional",
+          "relation": "prevents",
+          "object": "null pointer exceptions"
+        }
+      ]
+    }
+  ]
+}

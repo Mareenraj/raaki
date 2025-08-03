@@ -1,0 +1,17 @@
+{
+  "template_example": {
+    "id": "YOUR_ID_HERE",
+    "category": "YOUR_CATEGORY",
+    "text": "Your training sentence here",
+    "relations": [
+      {
+        "subject": "Subject",
+        "relation": "relationName",
+        "object": "Object"
+      }
+    ],
+    "rebel_format": "<triplet> relationName <subj> Subject <obj> Object",
+    "confidence": 1.0,
+    "source": "manual"
+  }
+}

@@ -1,0 +1,29 @@
+id,category,text,subject,relation,object,confidence,source
+java_001,inheritance,ArrayList class extends AbstractList and implements List interface,ArrayList,extends,AbstractList,1.0,manual
+java_001,inheritance,ArrayList class extends AbstractList and implements List interface,ArrayList,implements,List,1.0,manual
+java_002,inheritance,HashMap extends AbstractMap and implements Map interface,HashMap,extends,AbstractMap,1.0,manual
+java_002,inheritance,HashMap extends AbstractMap and implements Map interface,HashMap,implements,Map,1.0,manual
+java_003,inheritance,String class extends Object and implements Serializable,String,extends,Object,1.0,manual
+java_003,inheritance,String class extends Object and implements Serializable,String,implements,Serializable,1.0,manual
+java_004,methods,String class has length method that returns int type,String,hasMethod,length,1.0,manual
+java_004,methods,String class has length method that returns int type,length,returns,int,1.0,manual
+java_005,methods,ArrayList has add method that accepts Object parameter,ArrayList,hasMethod,add,1.0,manual
+java_005,methods,ArrayList has add method that accepts Object parameter,add,accepts,Object,1.0,manual
+java_006,packages,ArrayList belongs to java.util package,ArrayList,belongsTo,java.util,1.0,manual
+java_007,packages,String class is part of java.lang package,String,belongsTo,java.lang,1.0,manual
+java_008,exceptions,IOException extends Exception and indicates input output error,IOException,extends,Exception,1.0,manual
+java_008,exceptions,IOException extends Exception and indicates input output error,IOException,indicates,input output error,1.0,manual
+spring_001,spring,Controller annotation marks Spring MVC controller classes,Controller,isTypeOf,Spring annotation,1.0,manual
+spring_001,spring,Controller annotation marks Spring MVC controller classes,Controller,marks,MVC controller,1.0,manual
+spring_002,spring,Autowired annotation enables dependency injection in Spring,Autowired,enables,dependency injection,1.0,manual
+spring_002,spring,Autowired annotation enables dependency injection in Spring,Autowired,belongsTo,Spring,1.0,manual
+types_001,data_types,int is primitive data type that stores integer values,int,isTypeOf,primitive type,1.0,manual
+types_001,data_types,int is primitive data type that stores integer values,int,stores,integer values,1.0,manual
+collections_001,collections,List interface extends Collection and provides ordered elements,List,extends,Collection,1.0,manual
+collections_001,collections,List interface extends Collection and provides ordered elements,List,provides,ordered elements,1.0,manual
+patterns_001,design_patterns,Singleton pattern ensures single instance of class,Singleton,isTypeOf,design pattern,1.0,manual
+patterns_001,design_patterns,Singleton pattern ensures single instance of class,Singleton,ensures,single instance,1.0,manual
+threading_001,threading,Thread class implements Runnable interface for concurrent execution,Thread,implements,Runnable,1.0,manual
+threading_001,threading,Thread class implements Runnable interface for concurrent execution,Thread,enables,concurrent execution,1.0,manual
+testing_001,testing,JUnit framework provides Test annotation for unit testing,JUnit,isTypeOf,testing framework,1.0,manual
+testing_001,testing,JUnit framework provides Test annotation for unit testing,JUnit,provides,Test annotation,1.0,manual

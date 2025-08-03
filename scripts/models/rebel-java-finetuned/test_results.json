@@ -1,0 +1,61 @@
+{
+  "tested_at": "2025-07-31T13:54:01.511371",
+  "test_cases": [
+    {
+      "input": "ArrayList implements List interface",
+      "output": ""
+    },
+    {
+      "input": "String class has charAt method",
+      "output": ""
+    },
+    {
+      "input": "Optional class prevents NullPointerException",
+      "output": ""
+    },
+    {
+      "input": "RestController annotation handles HTTP requests",
+      "output": ""
+    },
+    {
+      "input": "Autowired enables dependency injection",
+      "output": ""
+    },
+    {
+      "input": "Spring Boot uses auto-configuration",
+      "output": ""
+    },
+    {
+      "input": "Entity annotation marks database entities",
+      "output": ""
+    },
+    {
+      "input": "Repository provides data access layer",
+      "output": ""
+    },
+    {
+      "input": "HashMap extends AbstractMap class",
+      "output": ""
+    },
+    {
+      "input": "TreeSet provides sorted collection",
+      "output": ""
+    },
+    {
+      "input": "ExecutorService manages thread pools",
+      "output": ""
+    },
+    {
+      "input": "Synchronized provides thread safety",
+      "output": ""
+    },
+    {
+      "input": "Singleton ensures single instance",
+      "output": ""
+    },
+    {
+      "input": "Factory creates objects dynamically",
+      "output": ""
+    }
+  ]
+}

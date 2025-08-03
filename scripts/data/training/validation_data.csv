@@ -1,0 +1,10 @@
+id,text,subject,relation,object
+val_001,LinkedList implements List and Deque interfaces,LinkedList,implements,List
+val_001,LinkedList implements List and Deque interfaces,LinkedList,implements,Deque
+val_002,StringBuilder class has append method returning StringBuilder,StringBuilder,hasMethod,append
+val_002,StringBuilder class has append method returning StringBuilder,append,returns,StringBuilder
+val_003,Service annotation marks Spring service layer components,Service,isTypeOf,Spring annotation
+val_003,Service annotation marks Spring service layer components,Service,marks,service layer
+val_004,FileInputStream extends InputStream for file reading operations,FileInputStream,extends,InputStream
+val_004,FileInputStream extends InputStream for file reading operations,FileInputStream,usedFor,file reading
+val_005,Optional class prevents null pointer exceptions,Optional,prevents,null pointer exceptions

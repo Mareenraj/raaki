@@ -1,0 +1,811 @@
+{
+  "metadata": {
+    "created_at": "2025-07-31T13:27:17.784005",
+    "total_examples": 50,
+    "source": "pipeline_extraction",
+    "min_confidence": 0.85,
+    "version": "1.0"
+  },
+  "examples": [
+    {
+      "id": "gen_001",
+      "category": "generated",
+      "text": "Code: public class Main { public static void main(String[] args) { System.out.pr",
+      "relations": [
+        {
+          "subject": "Main",
+          "relation": "istypeof",
+          "object": "Class"
+        }
+      ],
+      "rebel_format": "<triplet> istypeof <subj> Main <obj> Class",
+      "confidence": 1.0,
+      "source": "pipeline_generated",
+      "original_source": "https://www.w3schools.com/java/java_getstarted.asp"
+    },
+    {
+      "id": "gen_002",
+      "category": "generated",
+      "text": "Code: public class Main { public static void main(String[] args) { System.out.pr",
+      "relations": [
+        {
+          "subject": "Main",
+          "relation": "hasreturntype",
+          "object": "Void"
+        }
+      ],
+      "rebel_format": "<triplet> hasreturntype <subj> Main <obj> Void",
+      "confidence": 0.9,
+      "source": "pipeline_generated",
+      "original_source": "https://www.w3schools.com/java/java_getstarted.asp"
+    },
+    {
+      "id": "gen_003",
+      "category": "generated",
+      "text": "Code: public class Main { public static void main(String[] args) { System.out.pr",
+      "relations": [
+        {
+          "subject": "Main",
+          "relation": "istypeof",
+          "object": "Method"
+        }
+      ],
+      "rebel_format": "<triplet> istypeof <subj> Main <obj> Method",
+      "confidence": 0.9,
+      "source": "pipeline_generated",
+      "original_source": "https://www.w3schools.com/java/java_getstarted.asp"
+    },
+    {
+      "id": "gen_004",
+      "category": "generated",
+      "text": "Code: public class Main { public static void main(String[] args) { System.out.pr",
+      "relations": [
+        {
+          "subject": "String",
+          "relation": "istypeof",
+          "object": "DataType"
+        }
+      ],
+      "rebel_format": "<triplet> istypeof <subj> String <obj> DataType",
+      "confidence": 1.0,
+      "source": "pipeline_generated",
+      "original_source": "https://www.w3schools.com/java/java_getstarted.asp"
+    },
+    {
+      "id": "gen_005",
+      "category": "generated",
+      "text": "Code: public class Main { public static void main(String[] args) { System.out.pr",
+      "relations": [
+        {
+          "subject": "String",
+          "relation": "belongsto",
+          "object": "JavaPrimitives"
+        }
+      ],
+      "rebel_format": "<triplet> belongsto <subj> String <obj> JavaPrimitives",
+      "confidence": 1.0,
+      "source": "pipeline_generated",
+      "original_source": "https://www.w3schools.com/java/java_getstarted.asp"
+    },
+    {
+      "id": "gen_006",
+      "category": "generated",
+      "text": "Code: public class Main { int modelYear; String modelName; // Constructor with",
+      "relations": [
+        {
+          "subject": "This",
+          "relation": "istypeof",
+          "object": "Method"
+        }
+      ],
+      "rebel_format": "<triplet> istypeof <subj> This <obj> Method",
+      "confidence": 0.9,
+      "source": "pipeline_generated",
+      "original_source": "https://www.w3schools.com/java/java_this.asp"
+    },
+    {
+      "id": "gen_007",
+      "category": "generated",
+      "text": "Code: java version \"22.0.0\" 2024-08-21 LTS Java(TM) SE Runtime Environment 22.9 (build",
+      "relations": [
+        {
+          "subject": "Java",
+          "relation": "hasreturntype",
+          "object": "LTS"
+        }
+      ],
+      "rebel_format": "<triplet> hasreturntype <subj> Java <obj> LTS",
+      "confidence": 0.9,
+      "source": "pipeline_generated",
+      "original_source": "https://www.w3schools.com/java/java_getstarted.asp"
+    },
+    {
+      "id": "gen_008",
+      "category": "generated",
+      "text": "Code: java version \"22.0.0\" 2024-08-21 LTS Java(TM) SE Runtime Environment 22.9 (build",
+      "relations": [
+        {
+          "subject": "Java",
+          "relation": "istypeof",
+          "object": "Method"
+        }
+      ],
+      "rebel_format": "<triplet> istypeof <subj> Java <obj> Method",
+      "confidence": 0.9,
+      "source": "pipeline_generated",
+      "original_source": "https://www.w3schools.com/java/java_getstarted.asp"
+    },
+    {
+      "id": "gen_009",
+      "category": "generated",
+      "text": "Code: java version \"22.0.0\" 2024-08-21 LTS Java(TM) SE Runtime Environment 22.9 (build",
+      "relations": [
+        {
+          "subject": "HotSpot",
+          "relation": "hasreturntype",
+          "object": "Java"
+        }
+      ],
+      "rebel_format": "<triplet> hasreturntype <subj> HotSpot <obj> Java",
+      "confidence": 0.9,
+      "source": "pipeline_generated",
+      "original_source": "https://www.w3schools.com/java/java_getstarted.asp"
+    },
+    {
+      "id": "gen_010",
+      "category": "generated",
+      "text": "Code: java version \"22.0.0\" 2024-08-21 LTS Java(TM) SE Runtime Environment 22.9 (build",
+      "relations": [
+        {
+          "subject": "HotSpot",
+          "relation": "istypeof",
+          "object": "Method"
+        }
+      ],
+      "rebel_format": "<triplet> istypeof <subj> HotSpot <obj> Method",
+      "confidence": 0.9,
+      "source": "pipeline_generated",
+      "original_source": "https://www.w3schools.com/java/java_getstarted.asp"
+    },
+    {
+      "id": "gen_011",
+      "category": "generated",
+      "text": "In Java, every application begins with a class name, and that class must match the filename.",
+      "relations": [
+        {
+          "subject": "Name",
+          "relation": "istypeof",
+          "object": "Class"
+        }
+      ],
+      "rebel_format": "<triplet> istypeof <subj> Name <obj> Class",
+      "confidence": 0.9,
+      "source": "pipeline_generated",
+      "original_source": "https://www.w3schools.com/java/java_getstarted.asp"
+    },
+    {
+      "id": "gen_012",
+      "category": "generated",
+      "text": "In Java, every application begins with a class name, and that class must match the filename.",
+      "relations": [
+        {
+          "subject": "Must",
+          "relation": "istypeof",
+          "object": "Class"
+        }
+      ],
+      "rebel_format": "<triplet> istypeof <subj> Must <obj> Class",
+      "confidence": 0.9,
+      "source": "pipeline_generated",
+      "original_source": "https://www.w3schools.com/java/java_getstarted.asp"
+    },
+    {
+      "id": "gen_013",
+      "category": "generated",
+      "text": "Note: The curly braces {} marks the beginning and the end of a block of code. System is a built-in J",
+      "relations": [
+        {
+          "subject": "That",
+          "relation": "istypeof",
+          "object": "Class"
+        }
+      ],
+      "rebel_format": "<triplet> istypeof <subj> That <obj> Class",
+      "confidence": 0.9,
+      "source": "pipeline_generated",
+      "original_source": "https://www.w3schools.com/java/java_syntax.asp"
+    },
+    {
+      "id": "gen_014",
+      "category": "generated",
+      "text": "Code: short myNum = 5000; System.out.println(myNum);",
+      "relations": [
+        {
+          "subject": "Short",
+          "relation": "istypeof",
+          "object": "DataType"
+        }
+      ],
+      "rebel_format": "<triplet> istypeof <subj> Short <obj> DataType",
+      "confidence": 1.0,
+      "source": "pipeline_generated",
+      "original_source": "https://www.w3schools.com/java/java_data_types_numbers.asp"
+    },
+    {
+      "id": "gen_015",
+      "category": "generated",
+      "text": "Code: short myNum = 5000; System.out.println(myNum);",
+      "relations": [
+        {
+          "subject": "Short",
+          "relation": "belongsto",
+          "object": "JavaPrimitives"
+        }
+      ],
+      "rebel_format": "<triplet> belongsto <subj> Short <obj> JavaPrimitives",
+      "confidence": 1.0,
+      "source": "pipeline_generated",
+      "original_source": "https://www.w3schools.com/java/java_data_types_numbers.asp"
+    },
+    {
+      "id": "gen_016",
+      "category": "generated",
+      "text": "Code: double myNum = 19.99d; System.out.println(myNum);",
+      "relations": [
+        {
+          "subject": "Double",
+          "relation": "istypeof",
+          "object": "DataType"
+        }
+      ],
+      "rebel_format": "<triplet> istypeof <subj> Double <obj> DataType",
+      "confidence": 1.0,
+      "source": "pipeline_generated",
+      "original_source": "https://www.w3schools.com/java/java_data_types_numbers.asp"
+    },
+    {
+      "id": "gen_017",
+      "category": "generated",
+      "text": "Code: double myNum = 19.99d; System.out.println(myNum);",
+      "relations": [
+        {
+          "subject": "Double",
+          "relation": "belongsto",
+          "object": "JavaPrimitives"
+        }
+      ],
+      "rebel_format": "<triplet> belongsto <subj> Double <obj> JavaPrimitives",
+      "confidence": 1.0,
+      "source": "pipeline_generated",
+      "original_source": "https://www.w3schools.com/java/java_data_types_numbers.asp"
+    },
+    {
+      "id": "gen_018",
+      "category": "generated",
+      "text": "Code: int myNum = 15; System.out.println(myNum);",
+      "relations": [
+        {
+          "subject": "Int",
+          "relation": "istypeof",
+          "object": "DataType"
+        }
+      ],
+      "rebel_format": "<triplet> istypeof <subj> Int <obj> DataType",
+      "confidence": 1.0,
+      "source": "pipeline_generated",
+      "original_source": "https://www.w3schools.com/java/java_variables.asp"
+    },
+    {
+      "id": "gen_019",
+      "category": "generated",
+      "text": "Code: int myNum = 15; System.out.println(myNum);",
+      "relations": [
+        {
+          "subject": "Int",
+          "relation": "belongsto",
+          "object": "JavaPrimitives"
+        }
+      ],
+      "rebel_format": "<triplet> belongsto <subj> Int <obj> JavaPrimitives",
+      "confidence": 1.0,
+      "source": "pipeline_generated",
+      "original_source": "https://www.w3schools.com/java/java_variables.asp"
+    },
+    {
+      "id": "gen_020",
+      "category": "generated",
+      "text": "Code: int myNum = 5; float myFloatNum = 5.99f; char myLetter = 'D'; boolean myBool = t",
+      "relations": [
+        {
+          "subject": "Float",
+          "relation": "istypeof",
+          "object": "DataType"
+        }
+      ],
+      "rebel_format": "<triplet> istypeof <subj> Float <obj> DataType",
+      "confidence": 1.0,
+      "source": "pipeline_generated",
+      "original_source": "https://www.w3schools.com/java/java_variables.asp"
+    },
+    {
+      "id": "gen_021",
+      "category": "generated",
+      "text": "Code: int myNum = 5; float myFloatNum = 5.99f; char myLetter = 'D'; boolean myBool = t",
+      "relations": [
+        {
+          "subject": "Float",
+          "relation": "belongsto",
+          "object": "JavaPrimitives"
+        }
+      ],
+      "rebel_format": "<triplet> belongsto <subj> Float <obj> JavaPrimitives",
+      "confidence": 1.0,
+      "source": "pipeline_generated",
+      "original_source": "https://www.w3schools.com/java/java_variables.asp"
+    },
+    {
+      "id": "gen_022",
+      "category": "generated",
+      "text": "Code: int myNum = 5; float myFloatNum = 5.99f; char myLetter = 'D'; boolean myBool = t",
+      "relations": [
+        {
+          "subject": "Char",
+          "relation": "istypeof",
+          "object": "DataType"
+        }
+      ],
+      "rebel_format": "<triplet> istypeof <subj> Char <obj> DataType",
+      "confidence": 1.0,
+      "source": "pipeline_generated",
+      "original_source": "https://www.w3schools.com/java/java_variables.asp"
+    },
+    {
+      "id": "gen_023",
+      "category": "generated",
+      "text": "Code: int myNum = 5; float myFloatNum = 5.99f; char myLetter = 'D'; boolean myBool = t",
+      "relations": [
+        {
+          "subject": "Char",
+          "relation": "belongsto",
+          "object": "JavaPrimitives"
+        }
+      ],
+      "rebel_format": "<triplet> belongsto <subj> Char <obj> JavaPrimitives",
+      "confidence": 1.0,
+      "source": "pipeline_generated",
+      "original_source": "https://www.w3schools.com/java/java_variables.asp"
+    },
+    {
+      "id": "gen_024",
+      "category": "generated",
+      "text": "Code: int myNum = 5; float myFloatNum = 5.99f; char myLetter = 'D'; boolean myBool = t",
+      "relations": [
+        {
+          "subject": "Boolean",
+          "relation": "istypeof",
+          "object": "DataType"
+        }
+      ],
+      "rebel_format": "<triplet> istypeof <subj> Boolean <obj> DataType",
+      "confidence": 1.0,
+      "source": "pipeline_generated",
+      "original_source": "https://www.w3schools.com/java/java_variables.asp"
+    },
+    {
+      "id": "gen_025",
+      "category": "generated",
+      "text": "Code: int myNum = 5; float myFloatNum = 5.99f; char myLetter = 'D'; boolean myBool = t",
+      "relations": [
+        {
+          "subject": "Boolean",
+          "relation": "belongsto",
+          "object": "JavaPrimitives"
+        }
+      ],
+      "rebel_format": "<triplet> belongsto <subj> Boolean <obj> JavaPrimitives",
+      "confidence": 1.0,
+      "source": "pipeline_generated",
+      "original_source": "https://www.w3schools.com/java/java_variables.asp"
+    },
+    {
+      "id": "gen_026",
+      "category": "generated",
+      "text": "Code: public class Main { int modelYear; String modelName; // Constructor with",
+      "relations": [
+        {
+          "subject": "Name",
+          "relation": "istypeof",
+          "object": "Method"
+        }
+      ],
+      "rebel_format": "<triplet> istypeof <subj> Name <obj> Method",
+      "confidence": 0.9,
+      "source": "pipeline_generated",
+      "original_source": "https://www.w3schools.com/java/java_this.asp"
+    },
+    {
+      "id": "gen_027",
+      "category": "generated",
+      "text": "Code: byte myNum = 100; System.out.println(myNum);",
+      "relations": [
+        {
+          "subject": "Byte",
+          "relation": "istypeof",
+          "object": "DataType"
+        }
+      ],
+      "rebel_format": "<triplet> istypeof <subj> Byte <obj> DataType",
+      "confidence": 1.0,
+      "source": "pipeline_generated",
+      "original_source": "https://www.w3schools.com/java/java_data_types_numbers.asp"
+    },
+    {
+      "id": "gen_028",
+      "category": "generated",
+      "text": "Code: byte myNum = 100; System.out.println(myNum);",
+      "relations": [
+        {
+          "subject": "Byte",
+          "relation": "belongsto",
+          "object": "JavaPrimitives"
+        }
+      ],
+      "rebel_format": "<triplet> belongsto <subj> Byte <obj> JavaPrimitives",
+      "confidence": 1.0,
+      "source": "pipeline_generated",
+      "original_source": "https://www.w3schools.com/java/java_data_types_numbers.asp"
+    },
+    {
+      "id": "gen_029",
+      "category": "generated",
+      "text": "Code: long myNum = 15000000000L; System.out.println(myNum);",
+      "relations": [
+        {
+          "subject": "Long",
+          "relation": "istypeof",
+          "object": "DataType"
+        }
+      ],
+      "rebel_format": "<triplet> istypeof <subj> Long <obj> DataType",
+      "confidence": 1.0,
+      "source": "pipeline_generated",
+      "original_source": "https://www.w3schools.com/java/java_data_types_numbers.asp"
+    },
+    {
+      "id": "gen_030",
+      "category": "generated",
+      "text": "Code: long myNum = 15000000000L; System.out.println(myNum);",
+      "relations": [
+        {
+          "subject": "Long",
+          "relation": "belongsto",
+          "object": "JavaPrimitives"
+        }
+      ],
+      "rebel_format": "<triplet> belongsto <subj> Long <obj> JavaPrimitives",
+      "confidence": 1.0,
+      "source": "pipeline_generated",
+      "original_source": "https://www.w3schools.com/java/java_data_types_numbers.asp"
+    },
+    {
+      "id": "gen_031",
+      "category": "generated",
+      "text": "Code: // Import the HashMap class import java.util.HashMap; public class Main { pub",
+      "relations": [
+        {
+          "subject": "Values",
+          "relation": "istypeof",
+          "object": "Method"
+        }
+      ],
+      "rebel_format": "<triplet> istypeof <subj> Values <obj> Method",
+      "confidence": 0.9,
+      "source": "pipeline_generated",
+      "original_source": "https://www.w3schools.com/java/java_data_structures.asp"
+    },
+    {
+      "id": "gen_032",
+      "category": "generated",
+      "text": "Code: int x = 10; int y = 20; int z = x + y; // z will be 30 (an integer/number)",
+      "relations": [
+        {
+          "subject": "30",
+          "relation": "hasreturntype",
+          "object": "Be"
+        }
+      ],
+      "rebel_format": "<triplet> hasreturntype <subj> 30 <obj> Be",
+      "confidence": 0.9,
+      "source": "pipeline_generated",
+      "original_source": "https://www.w3schools.com/java/java_strings_numbers.asp"
+    },
+    {
+      "id": "gen_033",
+      "category": "generated",
+      "text": "Code: int x = 10; int y = 20; int z = x + y; // z will be 30 (an integer/number)",
+      "relations": [
+        {
+          "subject": "30",
+          "relation": "istypeof",
+          "object": "Method"
+        }
+      ],
+      "rebel_format": "<triplet> istypeof <subj> 30 <obj> Method",
+      "confidence": 0.9,
+      "source": "pipeline_generated",
+      "original_source": "https://www.w3schools.com/java/java_strings_numbers.asp"
+    },
+    {
+      "id": "gen_034",
+      "category": "generated",
+      "text": "Code: String x = \"10\"; String y = \"20\"; String z = x + y; // z will be 1020 (a String",
+      "relations": [
+        {
+          "subject": "1020",
+          "relation": "hasreturntype",
+          "object": "Be"
+        }
+      ],
+      "rebel_format": "<triplet> hasreturntype <subj> 1020 <obj> Be",
+      "confidence": 0.9,
+      "source": "pipeline_generated",
+      "original_source": "https://www.w3schools.com/java/java_strings_numbers.asp"
+    },
+    {
+      "id": "gen_035",
+      "category": "generated",
+      "text": "Code: String x = \"10\"; String y = \"20\"; String z = x + y; // z will be 1020 (a String",
+      "relations": [
+        {
+          "subject": "1020",
+          "relation": "istypeof",
+          "object": "Method"
+        }
+      ],
+      "rebel_format": "<triplet> istypeof <subj> 1020 <obj> Method",
+      "confidence": 0.9,
+      "source": "pipeline_generated",
+      "original_source": "https://www.w3schools.com/java/java_strings_numbers.asp"
+    },
+    {
+      "id": "gen_036",
+      "category": "generated",
+      "text": "The Java Math class has many methods that allows you to perform mathematical tasks on numbers.",
+      "relations": [
+        {
+          "subject": "Has",
+          "relation": "istypeof",
+          "object": "Class"
+        }
+      ],
+      "rebel_format": "<triplet> istypeof <subj> Has <obj> Class",
+      "confidence": 0.9,
+      "source": "pipeline_generated",
+      "original_source": "https://www.w3schools.com/java/java_math.asp"
+    },
+    {
+      "id": "gen_037",
+      "category": "generated",
+      "text": "Code: if (condition1) { // block of code to be executed if condition1 is true } else",
+      "relations": [
+        {
+          "subject": "If",
+          "relation": "istypeof",
+          "object": "Method"
+        }
+      ],
+      "rebel_format": "<triplet> istypeof <subj> If <obj> Method",
+      "confidence": 0.9,
+      "source": "pipeline_generated",
+      "original_source": "https://www.w3schools.com/java/java_conditions_elseif.asp"
+    },
+    {
+      "id": "gen_038",
+      "category": "generated",
+      "text": "Code: if (condition1) { // block of code to be executed if condition1 is true } else",
+      "relations": [
+        {
+          "subject": "If",
+          "relation": "hasreturntype",
+          "object": "Else"
+        }
+      ],
+      "rebel_format": "<triplet> hasreturntype <subj> If <obj> Else",
+      "confidence": 0.9,
+      "source": "pipeline_generated",
+      "original_source": "https://www.w3schools.com/java/java_conditions_elseif.asp"
+    },
+    {
+      "id": "gen_039",
+      "category": "generated",
+      "text": "Code: import java.util.ArrayList; import java.util.Iterator; public class Main { pu",
+      "relations": [
+        {
+          "subject": "While",
+          "relation": "istypeof",
+          "object": "Method"
+        }
+      ],
+      "rebel_format": "<triplet> istypeof <subj> While <obj> Method",
+      "confidence": 0.9,
+      "source": "pipeline_generated",
+      "original_source": "https://www.w3schools.com/java/java_data_structures.asp"
+    },
+    {
+      "id": "gen_040",
+      "category": "generated",
+      "text": "Code: // Outer loop for (int i = 1; i <= 2; i++) { System.out.println(\"Outer: \" + i)",
+      "relations": [
+        {
+          "subject": "For",
+          "relation": "istypeof",
+          "object": "Method"
+        }
+      ],
+      "rebel_format": "<triplet> istypeof <subj> For <obj> Method",
+      "confidence": 0.9,
+      "source": "pipeline_generated",
+      "original_source": "https://www.w3schools.com/java/java_for_loop_nested.asp"
+    },
+    {
+      "id": "gen_041",
+      "category": "generated",
+      "text": "Code: // Outer loop for (int i = 1; i <= 2; i++) { System.out.println(\"Outer: \" + i)",
+      "relations": [
+        {
+          "subject": "For",
+          "relation": "hasreturntype",
+          "object": "Loop"
+        }
+      ],
+      "rebel_format": "<triplet> hasreturntype <subj> For <obj> Loop",
+      "confidence": 0.9,
+      "source": "pipeline_generated",
+      "original_source": "https://www.w3schools.com/java/java_for_loop_nested.asp"
+    },
+    {
+      "id": "gen_042",
+      "category": "generated",
+      "text": "Code: // Outer loop for (int i = 1; i <= 2; i++) { System.out.println(\"Outer: \" + i)",
+      "relations": [
+        {
+          "subject": "Times",
+          "relation": "istypeof",
+          "object": "Method"
+        }
+      ],
+      "rebel_format": "<triplet> istypeof <subj> Times <obj> Method",
+      "confidence": 0.9,
+      "source": "pipeline_generated",
+      "original_source": "https://www.w3schools.com/java/java_for_loop_nested.asp"
+    },
+    {
+      "id": "gen_043",
+      "category": "generated",
+      "text": "Code: // An array storing different ages int ages[] = {20, 22, 18, 35, 48, 26, 87, 70}",
+      "relations": [
+        {
+          "subject": "For",
+          "relation": "hasreturntype",
+          "object": "Array"
+        }
+      ],
+      "rebel_format": "<triplet> hasreturntype <subj> For <obj> Array",
+      "confidence": 0.9,
+      "source": "pipeline_generated",
+      "original_source": "https://www.w3schools.com/java/java_arrays_reallife.asp"
+    },
+    {
+      "id": "gen_044",
+      "category": "generated",
+      "text": "Code: // An array storing different ages int ages[] = {20, 22, 18, 35, 48, 26, 87, 70}",
+      "relations": [
+        {
+          "subject": "For",
+          "relation": "hasreturntype",
+          "object": "Age"
+        }
+      ],
+      "rebel_format": "<triplet> hasreturntype <subj> For <obj> Age",
+      "confidence": 0.9,
+      "source": "pipeline_generated",
+      "original_source": "https://www.w3schools.com/java/java_arrays_reallife.asp"
+    },
+    {
+      "id": "gen_045",
+      "category": "generated",
+      "text": "Code: public class Main { static void myMethod() { // code to be executed } }",
+      "relations": [
+        {
+          "subject": "MyMethod",
+          "relation": "hasreturntype",
+          "object": "Void"
+        }
+      ],
+      "rebel_format": "<triplet> hasreturntype <subj> MyMethod <obj> Void",
+      "confidence": 0.9,
+      "source": "pipeline_generated",
+      "original_source": "https://www.w3schools.com/java/java_methods.asp"
+    },
+    {
+      "id": "gen_046",
+      "category": "generated",
+      "text": "Code: public class Main { static void myMethod() { // code to be executed } }",
+      "relations": [
+        {
+          "subject": "MyMethod",
+          "relation": "istypeof",
+          "object": "Method"
+        }
+      ],
+      "rebel_format": "<triplet> istypeof <subj> MyMethod <obj> Method",
+      "confidence": 0.9,
+      "source": "pipeline_generated",
+      "original_source": "https://www.w3schools.com/java/java_methods.asp"
+    },
+    {
+      "id": "gen_047",
+      "category": "generated",
+      "text": "Code: // Import the ArrayList class and the Iterator class import java.util.ArrayList;",
+      "relations": [
+        {
+          "subject": "And",
+          "relation": "istypeof",
+          "object": "Class"
+        }
+      ],
+      "rebel_format": "<triplet> istypeof <subj> And <obj> Class",
+      "confidence": 1.0,
+      "source": "pipeline_generated",
+      "original_source": "https://www.w3schools.com/java/java_iterator.asp"
+    },
+    {
+      "id": "gen_048",
+      "category": "generated",
+      "text": "Code: public class Main { // Create a checkAge() method with an integer variable ca",
+      "relations": [
+        {
+          "subject": "CheckAge",
+          "relation": "istypeof",
+          "object": "Method"
+        }
+      ],
+      "rebel_format": "<triplet> istypeof <subj> CheckAge <obj> Method",
+      "confidence": 0.9,
+      "source": "pipeline_generated",
+      "original_source": "https://www.w3schools.com/java/java_methods_param.asp"
+    },
+    {
+      "id": "gen_049",
+      "category": "generated",
+      "text": "Code: public class Main { // Create a checkAge() method with an integer variable ca",
+      "relations": [
+        {
+          "subject": "CheckAge",
+          "relation": "hasreturntype",
+          "object": "Void"
+        }
+      ],
+      "rebel_format": "<triplet> hasreturntype <subj> CheckAge <obj> Void",
+      "confidence": 0.9,
+      "source": "pipeline_generated",
+      "original_source": "https://www.w3schools.com/java/java_methods_param.asp"
+    },
+    {
+      "id": "gen_050",
+      "category": "generated",
+      "text": "Code: public class Main { static int myMethod(int x) { return 5 + x; } publ",
+      "relations": [
+        {
+          "subject": "MyMethod",
+          "relation": "hasreturntype",
+          "object": "Int"
+        }
+      ],
+      "rebel_format": "<triplet> hasreturntype <subj> MyMethod <obj> Int",
+      "confidence": 0.9,
+      "source": "pipeline_generated",
+      "original_source": "https://www.w3schools.com/java/java_methods_return.asp"
+    }
+  ]
+}

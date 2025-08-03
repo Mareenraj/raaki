@@ -1,0 +1,13 @@
+{
+  "metadata": {
+    "extraction_type": "improved_patterns",
+    "ontology_approach": "generalized",
+    "total_triples": 0,
+    "topics": [],
+    "extraction_method": "pattern_based",
+    "use_rebel": false,
+    "use_improved_patterns": true,
+    "created_at": "2025-08-01T19:52:23.789112"
+  },
+  "triples": []
+}

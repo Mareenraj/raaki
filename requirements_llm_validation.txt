@@ -1,0 +1,29 @@
+# LLM Validation Dependencies
+# Install with: pip install -r requirements_llm_validation.txt
+
+# Core dependencies
+requests>=2.31.0
+tenacity>=8.2.0
+
+# Optional: For OpenAI API
+openai>=1.0.0
+
+# Optional: For Google Generative AI
+google-generativeai>=0.3.0
+
+# Optional: For local models (if using transformers)
+transformers>=4.30.0
+torch>=2.0.0
+
+# Optional: For async processing
+aiohttp>=3.8.0
+asyncio-throttle>=1.0.0
+
+# Optional: For better JSON handling
+orjson>=3.9.0
+
+# Optional: For progress tracking
+tqdm>=4.65.0
+
+# Optional: For caching
+diskcache>=5.6.0 

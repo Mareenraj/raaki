@@ -1,0 +1,312 @@
+{
+  "metadata": {
+    "created_at": "2025-07-31T13:27:17.759008",
+    "total_examples": 15,
+    "categories": [
+      "threading",
+      "inheritance",
+      "testing",
+      "data_types",
+      "spring",
+      "methods",
+      "exceptions",
+      "collections",
+      "design_patterns",
+      "packages"
+    ],
+    "source": "manual_curation",
+    "version": "1.0"
+  },
+  "examples": [
+    {
+      "id": "java_001",
+      "category": "inheritance",
+      "text": "ArrayList class extends AbstractList and implements List interface",
+      "relations": [
+        {
+          "subject": "ArrayList",
+          "relation": "extends",
+          "object": "AbstractList"
+        },
+        {
+          "subject": "ArrayList",
+          "relation": "implements",
+          "object": "List"
+        }
+      ],
+      "rebel_format": "<triplet> extends <subj> ArrayList <obj> AbstractList <triplet> implements <subj> ArrayList <obj> List",
+      "confidence": 1.0,
+      "source": "manual"
+    },
+    {
+      "id": "java_002",
+      "category": "inheritance",
+      "text": "HashMap extends AbstractMap and implements Map interface",
+      "relations": [
+        {
+          "subject": "HashMap",
+          "relation": "extends",
+          "object": "AbstractMap"
+        },
+        {
+          "subject": "HashMap",
+          "relation": "implements",
+          "object": "Map"
+        }
+      ],
+      "rebel_format": "<triplet> extends <subj> HashMap <obj> AbstractMap <triplet> implements <subj> HashMap <obj> Map",
+      "confidence": 1.0,
+      "source": "manual"
+    },
+    {
+      "id": "java_003",
+      "category": "inheritance",
+      "text": "String class extends Object and implements Serializable",
+      "relations": [
+        {
+          "subject": "String",
+          "relation": "extends",
+          "object": "Object"
+        },
+        {
+          "subject": "String",
+          "relation": "implements",
+          "object": "Serializable"
+        }
+      ],
+      "rebel_format": "<triplet> extends <subj> String <obj> Object <triplet> implements <subj> String <obj> Serializable",
+      "confidence": 1.0,
+      "source": "manual"
+    },
+    {
+      "id": "java_004",
+      "category": "methods",
+      "text": "String class has length method that returns int type",
+      "relations": [
+        {
+          "subject": "String",
+          "relation": "hasMethod",
+          "object": "length"
+        },
+        {
+          "subject": "length",
+          "relation": "returns",
+          "object": "int"
+        }
+      ],
+      "rebel_format": "<triplet> hasMethod <subj> String <obj> length <triplet> returns <subj> length <obj> int",
+      "confidence": 1.0,
+      "source": "manual"
+    },
+    {
+      "id": "java_005",
+      "category": "methods",
+      "text": "ArrayList has add method that accepts Object parameter",
+      "relations": [
+        {
+          "subject": "ArrayList",
+          "relation": "hasMethod",
+          "object": "add"
+        },
+        {
+          "subject": "add",
+          "relation": "accepts",
+          "object": "Object"
+        }
+      ],
+      "rebel_format": "<triplet> hasMethod <subj> ArrayList <obj> add <triplet> accepts <subj> add <obj> Object",
+      "confidence": 1.0,
+      "source": "manual"
+    },
+    {
+      "id": "java_006",
+      "category": "packages",
+      "text": "ArrayList belongs to java.util package",
+      "relations": [
+        {
+          "subject": "ArrayList",
+          "relation": "belongsTo",
+          "object": "java.util"
+        }
+      ],
+      "rebel_format": "<triplet> belongsTo <subj> ArrayList <obj> java.util",
+      "confidence": 1.0,
+      "source": "manual"
+    },
+    {
+      "id": "java_007",
+      "category": "packages",
+      "text": "String class is part of java.lang package",
+      "relations": [
+        {
+          "subject": "String",
+          "relation": "belongsTo",
+          "object": "java.lang"
+        }
+      ],
+      "rebel_format": "<triplet> belongsTo <subj> String <obj> java.lang",
+      "confidence": 1.0,
+      "source": "manual"
+    },
+    {
+      "id": "java_008",
+      "category": "exceptions",
+      "text": "IOException extends Exception and indicates input output error",
+      "relations": [
+        {
+          "subject": "IOException",
+          "relation": "extends",
+          "object": "Exception"
+        },
+        {
+          "subject": "IOException",
+          "relation": "indicates",
+          "object": "input output error"
+        }
+      ],
+      "rebel_format": "<triplet> extends <subj> IOException <obj> Exception <triplet> indicates <subj> IOException <obj> input output error",
+      "confidence": 1.0,
+      "source": "manual"
+    },
+    {
+      "id": "spring_001",
+      "category": "spring",
+      "text": "Controller annotation marks Spring MVC controller classes",
+      "relations": [
+        {
+          "subject": "Controller",
+          "relation": "isTypeOf",
+          "object": "Spring annotation"
+        },
+        {
+          "subject": "Controller",
+          "relation": "marks",
+          "object": "MVC controller"
+        }
+      ],
+      "rebel_format": "<triplet> isTypeOf <subj> Controller <obj> Spring annotation <triplet> marks <subj> Controller <obj> MVC controller",
+      "confidence": 1.0,
+      "source": "manual"
+    },
+    {
+      "id": "spring_002",
+      "category": "spring",
+      "text": "Autowired annotation enables dependency injection in Spring",
+      "relations": [
+        {
+          "subject": "Autowired",
+          "relation": "enables",
+          "object": "dependency injection"
+        },
+        {
+          "subject": "Autowired",
+          "relation": "belongsTo",
+          "object": "Spring"
+        }
+      ],
+      "rebel_format": "<triplet> enables <subj> Autowired <obj> dependency injection <triplet> belongsTo <subj> Autowired <obj> Spring",
+      "confidence": 1.0,
+      "source": "manual"
+    },
+    {
+      "id": "types_001",
+      "category": "data_types",
+      "text": "int is primitive data type that stores integer values",
+      "relations": [
+        {
+          "subject": "int",
+          "relation": "isTypeOf",
+          "object": "primitive type"
+        },
+        {
+          "subject": "int",
+          "relation": "stores",
+          "object": "integer values"
+        }
+      ],
+      "rebel_format": "<triplet> isTypeOf <subj> int <obj> primitive type <triplet> stores <subj> int <obj> integer values",
+      "confidence": 1.0,
+      "source": "manual"
+    },
+    {
+      "id": "collections_001",
+      "category": "collections",
+      "text": "List interface extends Collection and provides ordered elements",
+      "relations": [
+        {
+          "subject": "List",
+          "relation": "extends",
+          "object": "Collection"
+        },
+        {
+          "subject": "List",
+          "relation": "provides",
+          "object": "ordered elements"
+        }
+      ],
+      "rebel_format": "<triplet> extends <subj> List <obj> Collection <triplet> provides <subj> List <obj> ordered elements",
+      "confidence": 1.0,
+      "source": "manual"
+    },
+    {
+      "id": "patterns_001",
+      "category": "design_patterns",
+      "text": "Singleton pattern ensures single instance of class",
+      "relations": [
+        {
+          "subject": "Singleton",
+          "relation": "isTypeOf",
+          "object": "design pattern"
+        },
+        {
+          "subject": "Singleton",
+          "relation": "ensures",
+          "object": "single instance"
+        }
+      ],
+      "rebel_format": "<triplet> isTypeOf <subj> Singleton <obj> design pattern <triplet> ensures <subj> Singleton <obj> single instance",
+      "confidence": 1.0,
+      "source": "manual"
+    },
+    {
+      "id": "threading_001",
+      "category": "threading",
+      "text": "Thread class implements Runnable interface for concurrent execution",
+      "relations": [
+        {
+          "subject": "Thread",
+          "relation": "implements",
+          "object": "Runnable"
+        },
+        {
+          "subject": "Thread",
+          "relation": "enables",
+          "object": "concurrent execution"
+        }
+      ],
+      "rebel_format": "<triplet> implements <subj> Thread <obj> Runnable <triplet> enables <subj> Thread <obj> concurrent execution",
+      "confidence": 1.0,
+      "source": "manual"
+    },
+    {
+      "id": "testing_001",
+      "category": "testing",
+      "text": "JUnit framework provides Test annotation for unit testing",
+      "relations": [
+        {
+          "subject": "JUnit",
+          "relation": "isTypeOf",
+          "object": "testing framework"
+        },
+        {
+          "subject": "JUnit",
+          "relation": "provides",
+          "object": "Test annotation"
+        }
+      ],
+      "rebel_format": "<triplet> isTypeOf <subj> JUnit <obj> testing framework <triplet> provides <subj> JUnit <obj> Test annotation",
+      "confidence": 1.0,
+      "source": "manual"
+    }
+  ]
+}

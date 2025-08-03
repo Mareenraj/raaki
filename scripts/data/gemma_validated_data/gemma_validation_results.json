@@ -1,0 +1,18 @@
+{
+  "metadata": {
+    "created_at": "228248.3599108",
+    "gemma_config": {
+      "provider": "google_ai",
+      "model": "gemini-1.5-flash",
+      "max_tokens": 200,
+      "temperature": 0.1
+    },
+    "validation_weights": {
+      "rule_weight": 0.4,
+      "llm_weight": 0.6
+    },
+    "technology_summaries": {}
+  },
+  "results": [],
+  "valid_only": []
+}

@@ -1,0 +1,6 @@
+{
+  "base_model": "Babelscape/rebel-large",
+  "fine_tuned_at": "2025-07-31T13:50:27.972475",
+  "device_used": "cpu",
+  "model_type": "enhanced-java-domain-rebel"
+}
