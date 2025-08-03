@@ -189,8 +189,8 @@ def run_complete_pipeline(clear_neo4j=True, use_improved_extraction=True):
         # Get Neo4j credentials from environment or use defaults
         uri = os.getenv("NEO4J_LOCAL_URI", "bolt://localhost:7687")
         user = os.getenv("NEO4J_LOCAL_USER", "neo4j")
-        password = os.getenv("NEO4J_LOCAL_PASSWORD", "password123")
-        database = os.getenv("NEO4J_LOCAL_DATABASE", "neo4j")
+        password = os.getenv("NEO4J_LOCAL_PASSWORD", "Ragav@2000")
+        database = os.getenv("NEO4J_LOCAL_DATABASE", "trainee-kg")
 
         loader = Neo4jLocalLoader(
             uri=uri,
@@ -301,7 +301,7 @@ def run_individual_step(step_number):
             from neo4j_loader_local import Neo4jLocalLoader
             uri = os.getenv("NEO4J_LOCAL_URI", "bolt://localhost:7687")
             user = os.getenv("NEO4J_LOCAL_USER", "neo4j")
-            password = os.getenv("NEO4J_LOCAL_PASSWORD", "password123")
+            password = os.getenv("NEO4J_LOCAL_PASSWORD", "Ragav@2000")
 
             loader = Neo4jLocalLoader(uri=uri, user=user, password=password)
             result = loader.load_data_to_neo4j(clear_existing=True)
@@ -481,7 +481,7 @@ def test_pipeline_prerequisites():
         from neo4j import GraphDatabase
         uri = os.getenv("NEO4J_LOCAL_URI", "bolt://localhost:7687")
         user = os.getenv("NEO4J_LOCAL_USER", "neo4j")
-        password = os.getenv("NEO4J_LOCAL_PASSWORD", "password123")
+        password = os.getenv("NEO4J_LOCAL_PASSWORD", "Ragav@2000")
 
         driver = GraphDatabase.driver(uri, auth=(user, password))
         with driver.session() as session:
